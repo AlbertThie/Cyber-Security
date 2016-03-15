@@ -15,4 +15,9 @@ public class Agent {
 		this.strategy = strategy;
 	}
 	
+	public int getRLvalue(){
+		int x = 50;
+		return x;
+	}
+	
 }

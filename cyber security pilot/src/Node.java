@@ -3,23 +3,15 @@ import java.util.ArrayList;
 
 public class Node {
 
-	private int value;
+	private double value, def, detect;
 	private String ID;
 	private ArrayList<Node> neighbours = new ArrayList<Node>();
 	
-	public Node(String ID, int v){
+	public Node(String ID, double v, double def, double det){
 		this.setID(ID);
 		this.value=v;
-	}
-
-
-	public int getValue() {
-		return value;
-	}
-
-
-	public void setValue(int value) {
-		this.value = value;
+		this.def=def;
+		this.detect=det;
 	}
 
 
@@ -54,5 +46,33 @@ public class Node {
 	}
 	public String toString(){
 		return "Name: "+ID+"/nNeighbours: "+drawNeighbours()+"/nValue: "+value;
+	}
+
+	public double getValue() {
+		return value;
+	}
+
+
+	public void setValue(double value) {
+		this.value = value;
+	}
+	
+	public double getDef() {
+		return def;
+	}
+
+
+	public void setDef(double def) {
+		this.def = def;
+	}
+
+
+	public double getDetect() {
+		return detect;
+	}
+
+
+	public void setDetect(double detect) {
+		this.detect = detect;
 	}
 }

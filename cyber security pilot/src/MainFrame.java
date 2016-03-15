@@ -1,7 +1,10 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -14,12 +17,16 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
 
-public class MainFrame {
+public class MainFrame extends JFrame {
 
 	// Global scape variables
 	static int xSize = 500;
@@ -42,30 +49,80 @@ public class MainFrame {
 	static int numStrategies = strategies.length;
 	
 	// Visualization variables
-	static JFrame frame;
-	static MainFrame mainFrame;
-	static MainPanel mainPanel;
+	static Panel panel;
+	static Simulation model;
 	
 	public MainFrame(){
-	
-	}
-	
-	public static void setup() {
-		// Construct the setup frame
-		final JFrame setup = new JFrame("Welcome!");
-		setup.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Cyber Security Simulation");
+	    setSize(1024,768);
+	    setResizable(false);
+	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	    this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+	    JMenuBar menuBar = new JMenuBar();
+	    setJMenuBar(menuBar);
+	    
+	    // Define and add three drop down menus to the menu bar
+	    JMenu fileMenu = new JMenu("File");
+	    //JMenu editMenu = new JMenu("Edit");
+	    //JMenu viewMenu = new JMenu("View");
+	    menuBar.add(fileMenu);
+	    //menuBar.add(editMenu);
+	    //menuBar.add(viewMenu);
+	    
+	    JMenuItem loadAction = new JMenuItem("Load");
+        JMenuItem exitAction = new JMenuItem("Exit");
+        //JMenuItem changeNameAction = new JMenuItem("Change Name");
+        //JMenuItem changeLangAction = new JMenuItem("Change Language");
+        //JMenuItem rulesAction = new JMenuItem("Rules");
+        
+        fileMenu.add(exitAction);
+        fileMenu.add(exitAction);
+        //editMenu.add(changeNameAction);
+        //viewMenu.add(rulesAction);
+        //editMenu.add(changeLangAction);
+        
+        //exitAction.setAction(exitActiones);
+        exitAction.setAccelerator(KeyStroke.getKeyStroke("control Q"));
+        
+        //rulesAction.setAction(rulesActiones);
+        //rulesAction.setAccelerator(KeyStroke.getKeyStroke("control R"));
+        
+        //changeNameAction.setAction(changeNameActiones);
+        //changeNameAction.setAccelerator(KeyStroke.getKeyStroke("control R"));
+        
+        //changeLangAction.setAction(languageActiones);
+        //changeLangAction.setAccelerator(KeyStroke.getKeyStroke("control L"));
+        
+        model = new Simulation();
+	    panel = new Panel(model, this);
+	    panel.setBackground(new Color(15,97,20));
+	    this.add(panel);
 		
-		JComponent pane = (JComponent)setup.getContentPane();
-		pane.setLayout(new BorderLayout());
-		pane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		
-		JLabel create = new JLabel ("Create your dilemma", SwingConstants.LEFT);
-		create.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 		
-		JPanel body = new JPanel();
-		body.setLayout(new GridLayout(6, 2));
+		////////////////////////////////////////
 		
 		// Contents of the setup frame
+		
+		
+		/*pane.add(create, BorderLayout.NORTH);
+		pane.add(body, BorderLayout.CENTER);
+		pane.add(ok, BorderLayout.SOUTH);
+		
+		setup.pack();
+		setup.setLocationRelativeTo(null);
+		setup.setSize(300, 300);
+		JMenuBar menuBar = new JMenuBar();
+	    setup.setJMenuBar(menuBar);
+	    setup.add(mainPanel);
+        setup.setVisible(true);*/
+	}
+	
+	public void startWindow(){
+		final JFrame setup = new JFrame("Welcome!");
+		setup.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JPanel body = new JPanel();
+		body.setLayout(new GridLayout(6, 2));
 		JLabel defender = new JLabel("Strategy for the defender:");
 		JLabel attacker = new JLabel("Strategy for the attacker:");
 		final JTextField[] getStrat = new JTextField[numStrategies];
@@ -91,6 +148,7 @@ public class MainFrame {
 		// The ok button is defined here. It ll extract all the information
 		// from the content and it will continue to the simulation
 		JButton ok = new JButton("Ok");	
+		
 		ok.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setup.dispose();
@@ -102,47 +160,11 @@ public class MainFrame {
 				}
 			}
 		);
-		
-		pane.add(create, BorderLayout.NORTH);
-		pane.add(body, BorderLayout.CENTER);
-		pane.add(ok, BorderLayout.SOUTH);
-		
-		setup.pack();
-		setup.setLocationRelativeTo(null);
-		setup.setSize(300, 300);
-        setup.setVisible(true);
 	}
 	
 	public static void startSimulation() {
 		epochs = 0;
-	
-		MainFrame controller = new MainFrame();
-		createAndShowGUI(controller);
 	}
-		
-	// Function involved in showing the simulation.
-    private static void createAndShowGUI(MainFrame controller) {
-        //Create and set up the window.
-        frame = new JFrame("Scape");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(true);
-        frame.setSize(xSize, ySize);
-        
-        //Set up the content pane.
-        //controller.buildUI(frame.getContentPane());
-
-        //Display the window.
-        //frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
-    
-    // Function involved in showing the simulation.
-    private void buildUI(Container pane) {
-        pane.setLayout(new FlowLayout());
-        mainPanel = new MainPanel(this);
-        pane.add(mainPanel);
-    }
     
     private static int getValue(String s) {
     	if(s.equals("")) {
@@ -154,7 +176,15 @@ public class MainFrame {
     	}
     }
 	
-	public static void main(String args[]){
-		setup();
-	}
+    public static void main(String args[]){
+		boolean again=false;
+		String name=null;
+		do  {
+	        MainFrame f = new MainFrame();
+			f.startWindow();
+	        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        f.setVisible(true);
+		} while(again);
+        System.exit(0);
+    }
 }
