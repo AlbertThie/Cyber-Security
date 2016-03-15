@@ -32,8 +32,6 @@ public class MainFrame extends JFrame {
 	static int xSize = 500;
 	static int ySize = 500;
 	static int epochs = 0;
-	static AttackAgent aAgent = new AttackAgent();
-	static DefenderAgent dAgent = new DefenderAgent();
 	static Random gen = new Random();
 
 	// Strategy variables
@@ -52,7 +50,7 @@ public class MainFrame extends JFrame {
 	static Panel panel;
 	static Simulation model;
 	
-	public MainFrame(){
+	public MainFrame(String aStrat, String dStrat){
 		setTitle("Cyber Security Simulation");
 	    setSize(1024,768);
 	    setResizable(false);
@@ -79,7 +77,7 @@ public class MainFrame extends JFrame {
         fileMenu.add(exitAction);
         //editMenu.add(changeNameAction);
         //viewMenu.add(rulesAction);
-        //editMenu.add(changeLangAction);
+        //editMenu.add(changeLangAction);strategy
         
         //exitAction.setAction(exitActiones);
         exitAction.setAccelerator(KeyStroke.getKeyStroke("control Q"));
@@ -94,6 +92,8 @@ public class MainFrame extends JFrame {
         //changeLangAction.setAccelerator(KeyStroke.getKeyStroke("control L"));
         
         model = new Simulation();
+        model.getaAgent().setStrategy(aStrat);
+		model.getdAgent().setStrategy(dStrat);
 	    panel = new Panel(model, this);
 	    panel.setBackground(new Color(15,97,20));
 	    this.add(panel);
@@ -118,7 +118,7 @@ public class MainFrame extends JFrame {
         setup.setVisible(true);*/
 	}
 	
-	public void startWindow(){
+	/*public void startWindow(){
 		final JFrame setup = new JFrame("Welcome!");
 		setup.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel body = new JPanel();
@@ -160,7 +160,9 @@ public class MainFrame extends JFrame {
 				}
 			}
 		);
-	}
+		model.setaAgent(aAgent);
+		model.setdAgent(dAgent);
+	}*/
 	
 	public static void startSimulation() {
 		epochs = 0;
@@ -177,14 +179,10 @@ public class MainFrame extends JFrame {
     }
 	
     public static void main(String args[]){
-		boolean again=false;
-		String name=null;
-		do  {
-	        MainFrame f = new MainFrame();
-			f.startWindow();
-	        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        f.setVisible(true);
-		} while(again);
+		StartWindow sw = new StartWindow();
+		MainFrame f = new MainFrame(sw.getaStrat(), sw.getdStrat());
+	    //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    f.setVisible(true);
         System.exit(0);
     }
 }
