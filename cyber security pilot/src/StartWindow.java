@@ -17,11 +17,16 @@ public class StartWindow {
 	private String aStrat;
 	private String dStrat;
 	private Boolean vis;
+	private boolean answered;
 	
-	public void startWindow(int numStrat){
+	public StartWindow(int numStrat){
+		setAnswered(false);
 		final JFrame setup = new JFrame("Welcome!");
+	    setup.setSize(400,200);
+	    setup.setLocationRelativeTo(null);
 		setup.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel body = new JPanel();
+		
 		body.setLayout(new GridLayout(6, 2));
 		JLabel defender = new JLabel("Strategy for the defender:");
 		JLabel attacker = new JLabel("Strategy for the attacker:");
@@ -44,21 +49,22 @@ public class StartWindow {
 		body.add(attacker);
 		body.add(s2);
 		body.add(check);
-				
+		
 		// The ok button is defined here. It ll extract all the information
 		// from the content and it will continue to the simulation
 		JButton ok = new JButton("Ok");	
-		
+		body.add(ok);
 		ok.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setup.dispose();
 					setdStrat((String)s2.getSelectedItem());
 					setaStrat((String)s2.getSelectedItem());
 					setVis(check.isSelected());
-					System.out.println("Visual: "+vis);
+					setAnswered(true);
 				}
 			}
 		);
+		setup.add(body);
 	    setup.setVisible(true);
 	}
 	
@@ -84,6 +90,14 @@ public class StartWindow {
 
 	public void setdStrat(String dStrat) {
 		this.dStrat = dStrat;
+	}
+
+	public boolean isAnswered() {
+		return answered;
+	}
+
+	public void setAnswered(boolean answered) {
+		this.answered = answered;
 	}
 	
 }

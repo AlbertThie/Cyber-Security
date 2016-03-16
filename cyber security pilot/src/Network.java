@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Network {
 
 	private ArrayList<Node> nodes = new ArrayList<Node>();
+	private Node nodeSelected;
 	
 	public Network(){
 		
@@ -32,6 +33,14 @@ public class Network {
 	
 	public void clearNetwork(){
 		nodes.clear();
+	}
+
+	public Node getNodeSelected() {
+		return nodeSelected;
+	}
+
+	public void setNodeSelected(Node nodeSelected) {
+		this.nodeSelected = nodeSelected;
 	}
 	
 }

@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -47,35 +49,55 @@ public class MainFrame extends JFrame {
 	static int numStrategies = strategies.length;
 	
 	// Visualization variables
-	static Panel panel;
+	static InfoPanel iPanel;
+	static NodePanel nPanel;
 	static Simulation model;
 	
 	public MainFrame(String aStrat, String dStrat){
+		model = new Simulation();
+        model.getaAgent().setStrategy(aStrat);
+		model.getdAgent().setStrategy(dStrat);
+	    
+	    nPanel = new NodePanel(model, this);
+		nPanel.setBackground(Color.GRAY);
+	    nPanel.setBounds(0, 0, 700, 768);
+
+	    iPanel = new InfoPanel(model, this);
+		iPanel.setBackground(Color.BLUE);
+		iPanel.setBounds(701, 0, 500, 768);
+		
+		setLayout(null);
+	    this.add(nPanel);
+	    this.add(iPanel);
+
+	    model.addObserver(iPanel);
+	    model.addObserver(nPanel);
+	    
 		setTitle("Cyber Security Simulation");
-	    setSize(1024,768);
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setSize(1000,768);
+	    setLocationRelativeTo(null);
 	    setResizable(false);
-	    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-	    this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 	    JMenuBar menuBar = new JMenuBar();
 	    setJMenuBar(menuBar);
 	    
 	    // Define and add three drop down menus to the menu bar
 	    JMenu fileMenu = new JMenu("File");
-	    //JMenu editMenu = new JMenu("Edit");
+	    JMenu editMenu = new JMenu("Edit");
 	    //JMenu viewMenu = new JMenu("View");
 	    menuBar.add(fileMenu);
-	    //menuBar.add(editMenu);
+	    menuBar.add(editMenu);
 	    //menuBar.add(viewMenu);
 	    
-	    JMenuItem loadAction = new JMenuItem("Load");
+	    //JMenuItem loadAction = new JMenuItem("Load");
         JMenuItem exitAction = new JMenuItem("Exit");
-        //JMenuItem changeNameAction = new JMenuItem("Change Name");
+        JMenuItem addNodeAction = new JMenuItem("Add node");
         //JMenuItem changeLangAction = new JMenuItem("Change Language");
         //JMenuItem rulesAction = new JMenuItem("Rules");
         
         fileMenu.add(exitAction);
-        fileMenu.add(exitAction);
-        //editMenu.add(changeNameAction);
+        //fileMenu.add(exitAction);
+        editMenu.add(addNodeAction);
         //viewMenu.add(rulesAction);
         //editMenu.add(changeLangAction);strategy
         
@@ -85,85 +107,25 @@ public class MainFrame extends JFrame {
         //rulesAction.setAction(rulesActiones);
         //rulesAction.setAccelerator(KeyStroke.getKeyStroke("control R"));
         
-        //changeNameAction.setAction(changeNameActiones);
-        //changeNameAction.setAccelerator(KeyStroke.getKeyStroke("control R"));
+        addNodeAction.setAction(addNodeActiones);
+        addNodeAction.setAccelerator(KeyStroke.getKeyStroke("control shift n"));
         
         //changeLangAction.setAction(languageActiones);
         //changeLangAction.setAccelerator(KeyStroke.getKeyStroke("control L"));
+	    setVisible(true);
         
-        model = new Simulation();
-        model.getaAgent().setStrategy(aStrat);
-		model.getdAgent().setStrategy(dStrat);
-	    panel = new Panel(model, this);
-	    panel.setBackground(new Color(15,97,20));
-	    this.add(panel);
-		
-		
-		
-		////////////////////////////////////////
-		
-		// Contents of the setup frame
-		
-		
-		/*pane.add(create, BorderLayout.NORTH);
-		pane.add(body, BorderLayout.CENTER);
-		pane.add(ok, BorderLayout.SOUTH);
-		
-		setup.pack();
-		setup.setLocationRelativeTo(null);
-		setup.setSize(300, 300);
-		JMenuBar menuBar = new JMenuBar();
-	    setup.setJMenuBar(menuBar);
-	    setup.add(mainPanel);
-        setup.setVisible(true);*/
+       
 	}
 	
-	/*public void startWindow(){
-		final JFrame setup = new JFrame("Welcome!");
-		setup.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JPanel body = new JPanel();
-		body.setLayout(new GridLayout(6, 2));
-		JLabel defender = new JLabel("Strategy for the defender:");
-		JLabel attacker = new JLabel("Strategy for the attacker:");
-		final JTextField[] getStrat = new JTextField[numStrategies];
-		String content = "";
-		DefaultComboBoxModel<String> strat1 = new DefaultComboBoxModel<String>();
-		DefaultComboBoxModel<String> strat2 = new DefaultComboBoxModel<String>();
-		String values[] = {"Strategy 1","Strategy 2", "Strategy 3"};
-		for(String value : values){
-			strat1.addElement(value);
-			strat2.addElement(value);
-		}
-		final JComboBox s1 = new JComboBox(strat1);
-		final JComboBox s2 = new JComboBox(strat2);
-		
-		final JCheckBox check = new JCheckBox("Visualisation");
-		// Add all the contents to the frame
-		body.add(defender);
-		body.add(s1);
-		body.add(attacker);
-		body.add(s2);
-		body.add(check);
-				
-		// The ok button is defined here. It ll extract all the information
-		// from the content and it will continue to the simulation
-		JButton ok = new JButton("Ok");	
-		
-		ok.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					setup.dispose();
-					dAgent.setStrategy((String)s2.getSelectedItem());
-					aAgent.setStrategy((String)s2.getSelectedItem());
-					Boolean vis = check.isSelected();
-					System.out.println("Visual: "+vis);
-					startSimulation();
-				}
-			}
-		);
-		model.setaAgent(aAgent);
-		model.setdAgent(dAgent);
-	}*/
-	
+	private Action addNodeActiones = new AbstractAction("Add a node") {
+        public void actionPerformed(ActionEvent e) {
+        	System.out.println("NODE ADDED");
+            Node node = new Node("new_node",0,0,0,100,100);
+            model.getNw().addNode(node);
+            model.noti();
+        }
+    };
+    
 	public static void startSimulation() {
 		epochs = 0;
 	}
@@ -179,10 +141,13 @@ public class MainFrame extends JFrame {
     }
 	
     public static void main(String args[]){
-		StartWindow sw = new StartWindow();
-		MainFrame f = new MainFrame(sw.getaStrat(), sw.getdStrat());
-	    //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    f.setVisible(true);
-        System.exit(0);
+		StartWindow sw = new StartWindow(2);
+		while(!sw.isAnswered()){
+			System.out.print("");
+		}
+    	
+	    MainFrame frame = new MainFrame(sw.getaStrat(), sw.getdStrat());
+	    
+      
     }
 }
