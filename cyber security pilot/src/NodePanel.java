@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Observable;
@@ -16,6 +17,13 @@ public class NodePanel extends JPanel implements Observer {
 	public NodePanel(Simulation model, MainFrame frame){
 		setFrame(frame);
 		setS(model);
+		//setLayout( new BorderLayout() );
+		//setPreferredSize(new Dimension(200,500));
+		setBounds(0, 0, 700, 768);
+		System.out.println("Thing of node panel: "+this.getBounds());
+		Selectioncontroller sc = new Selectioncontroller(s);
+		this.addMouseListener(sc);
+		this.addMouseMotionListener(sc);
 	}
 	
 	public void paintNetwork(Graphics g){

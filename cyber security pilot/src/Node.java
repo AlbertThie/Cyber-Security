@@ -1,3 +1,4 @@
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 
@@ -9,14 +10,19 @@ public class Node {
 	private boolean selected;
 	private ArrayList<Node> neighbours = new ArrayList<Node>();
 	
-	public Node(String ID, double v, double def, double det, double xPos, double yPos){
+	public Node(String ID, double v, double def, double det, int xPos, int yPos){
 		this.setID(ID);
 		this.value=v;
 		this.def=def;
 		this.detect=det;
+		this.setxPos(xPos);
+		this.setyPos(yPos);
 		this.selected=false;
 	}
-
+	
+	public Rectangle getRect(){
+		return new Rectangle(getxPos(), getyPos(), 30, 30);
+	}
 
 	public ArrayList<Node> getNeighbours() {
 		return neighbours;
