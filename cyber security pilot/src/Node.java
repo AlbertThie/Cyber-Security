@@ -1,19 +1,28 @@
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 
 public class Node {
 
 	private double value, def, detect;
+	private int xPos, yPos;
 	private String ID;
+	private boolean selected;
 	private ArrayList<Node> neighbours = new ArrayList<Node>();
 	
-	public Node(String ID, double v, double def, double det){
+	public Node(String ID, double v, double def, double det, int xPos, int yPos){
 		this.setID(ID);
 		this.value=v;
 		this.def=def;
 		this.detect=det;
+		this.setxPos(xPos);
+		this.setyPos(yPos);
+		this.selected=false;
 	}
-
+	
+	public Rectangle getRect(){
+		return new Rectangle(getxPos(), getyPos(), 30, 30);
+	}
 
 	public ArrayList<Node> getNeighbours() {
 		return neighbours;
@@ -74,5 +83,25 @@ public class Node {
 
 	public void setDetect(double detect) {
 		this.detect = detect;
+	}
+
+
+	public int getxPos() {
+		return xPos;
+	}
+
+
+	public void setxPos(int xPos) {
+		this.xPos = xPos;
+	}
+
+
+	public int getyPos() {
+		return yPos;
+	}
+
+
+	public void setyPos(int yPos) {
+		this.yPos = yPos;
 	}
 }
