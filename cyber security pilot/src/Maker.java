@@ -50,13 +50,15 @@ public class Maker {
 		}
 		int a=0;
 		while(s.hasNextLine() && a++<numNodes){
-			double x,y,z;
+			double v,w,x,y,z;
 			String n;
 			n=s.nextLine();
 			x=s.nextInt();
 			y=s.nextInt(); 
 			z=s.nextInt();
-			Node node = new Node(n,x,y,z);
+			w=s.nextInt();
+			v=s.nextInt();
+			Node node = new Node(n,x,y,z,w,v);
 			network.getNodes().add(node);
 		}
 		
