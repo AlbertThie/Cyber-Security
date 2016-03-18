@@ -2,6 +2,9 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.AbstractAction;
@@ -11,27 +14,11 @@ import javax.swing.JFileChooser;
 
 public class Maker {
 
-	private Network network = new Network();
+	private Network network;
 	
 	public Maker(){
-		
+		network = new Network();
 	}
-	
-	private Action loadActiones = new AbstractAction("Load") {
-		public void actionPerformed(ActionEvent e) {
-			try {
-				JFileChooser fc = new JFileChooser();
-		       	fc.showOpenDialog(null);
-		       	String p = fc.getSelectedFile().getAbsolutePath();
-		       	network.clearNetwork();
-		       	load(p);
-		       	System.out.println("Loaded");
-		    } catch (Exception e1) {
-		       	System.out.println("Loading failed");
-		        e1.printStackTrace();
-		    }
-		}
-	};
 	
 	public void load(String str){
 		Scanner s = null;
@@ -42,34 +29,30 @@ public class Maker {
 			System.out.println("File not found");
 			System.exit(0);
 		}
-		int numNodes = 0;
+		int numNodes = 0, numCons = 0;
 		if(s.hasNextLine()){
 			numNodes = s.nextInt();
+			numCons = s.nextInt();
 		} else {
 			s.close();
 		}
 		int a=0;
 		while(s.hasNextLine() && a++<numNodes){
-			double v,w,x,y,z;
+			double x,y,z;
+			int w,v;
 			String n;
-			n=s.nextLine();
-			x=s.nextInt();
-			y=s.nextInt(); 
-			z=s.nextInt();
+			x=s.nextDouble();
+			y=s.nextDouble(); 
+			z=s.nextDouble();
 			w=s.nextInt();
 			v=s.nextInt();
+			s.skip(" ");
+			n= s.nextLine();
 			Node node = new Node(n,x,y,z,w,v);
 			network.getNodes().add(node);
 		}
-		
 		a=0;
-		int numConnections = 0;
-		if(s.hasNextLine()){
-			numConnections = s.nextInt();
-		} else {
-			s.close();
-		}
-		while(s.hasNextLine() && a++<numConnections){
+		while(s.hasNextLine() && a++<numCons){
 			String v1, v2;
 			v1=s.nextLine();
 			v2=s.nextLine();
@@ -78,8 +61,39 @@ public class Maker {
 			Node n2 = network.getNode(v2);
 			n1.addNeighbour(n2);
 			n2.addNeighbour(n1);
+			network.makeConnection(n1, n2);
 		}
 		s.close();
+	}
+
+	public void save(String str, Network nw){
+		PrintWriter o = null;
+		try{
+			o = new PrintWriter(new FileOutputStream(str));
+		}
+		catch (FileNotFoundException e){
+			System.out.println("Error saving the .txt file: file not found.");
+			System.exit(0);
+		}
+		ArrayList<Node> nodes = network.getNodes();
+		int cons = network.getConnections().size();
+		o.println(nodes.size()+" "+cons);
+		int a=0;
+		while(a<nodes.size()){
+			Node n = nodes.get(a);
+			o.println(n.toString());
+			a++;
+		}
+		a=0;
+		while(a<cons){
+			Node n1 = network.getConnections().get(a).n1;
+			Node n2 = network.getConnections().get(a).n2;
+			o.println(n1.getID());
+			o.println(n2.getID());
+			o.println();
+			a++;
+		}
+		o.close();
 	}
 
 	public Network getN() {

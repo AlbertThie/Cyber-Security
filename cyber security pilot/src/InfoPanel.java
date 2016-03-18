@@ -15,7 +15,6 @@ public class InfoPanel extends JPanel implements Observer {
 	
 	
 	public InfoPanel(Simulation model, MainFrame mf){
-		
 		setFrame(mf);
 		setS(model);
 		Selectioncontroller sc = new Selectioncontroller(s);
@@ -23,21 +22,24 @@ public class InfoPanel extends JPanel implements Observer {
 		this.addMouseMotionListener(sc);
 	}
 	
-	public void paintNodeInfo(Graphics g){
+	public void paintNodeInfo(Graphics g, int yStart){
 		g.setColor(Color.YELLOW);
-		Rectangle rect=new Rectangle(700,24,300,180);
+		int xStart = 10;
+		Rectangle rect=new Rectangle(5,yStart,300,100);
+        Node sel = s.getNw().getNodeSelected();
 		g.drawRoundRect(rect.x, rect.y, rect.width, rect.height, 10, 5);
 		g.setColor(new Color(219,211,90));
 		g.fillRoundRect(rect.x, rect.y, rect.width, rect.height, 10, 5);
-        //g.drawString(l.getLine("eng", 2), 710, 50);
-        g.drawString("_________________________________________", 710, 55);
-        //g.drawString(l.getLine("eng", 3), 710, 75);
-        //g.drawString(game.getPerson(1).getName()+" :"+game.getPerson(1).getPoints(), 710, 95);
-        //g.drawString("Jelle :"+game.getPerson(2).getPoints(), 710, 115);
-        //g.drawString("Cor :"+game.getPerson(3).getPoints(), 710, 135);
-        //g.drawString("Henry :"+game.getPerson(4).getPoints(), 710, 155);
-        g.drawString("_________________________________________", 710, 165);
-        //g.drawString(this.game.getPerson(1).getMessage(), 710, 190);
+		g.setColor(Color.BLACK);
+        g.drawString("Number of nodes:"+s.getNw().getNodes().size(), xStart, yStart+15);
+        g.drawString("_________________________________________", xStart, yStart+20);
+        g.drawString("Current selected node: "+(sel==null?"no node selected":sel.getID()), xStart, yStart+35);
+        if(sel!= null){
+        	g.drawString("Detection value: "+sel.getDetect(), xStart, yStart+50);
+        	g.drawString("Defensive value: "+sel.getDef(), xStart, yStart+65);
+        	g.drawString("Asset value: "+sel.getValue(), xStart, yStart+80);
+        	g.drawString("Number of neighbouring nodes: "+sel.getNeighbours().size(), xStart, yStart+95);
+        }
 	}
 
 	public MainFrame getFrame() {
@@ -57,13 +59,15 @@ public class InfoPanel extends JPanel implements Observer {
 	}
 
 	public void paintComponent(Graphics g){
+		frame.enableButtons();
 		super.paintComponent(g);
-		paintNodeInfo(g);
+		paintNodeInfo(g, 20);
     }
 	
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		
+		this.validate();
+		this.repaint();
 	}
 }

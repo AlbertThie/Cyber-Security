@@ -53,9 +53,6 @@ public class Node {
 		}
 		return s;
 	}
-	public String toString(){
-		return "Name: "+ID+"/nNeighbours: "+drawNeighbours()+"/nValue: "+value;
-	}
 
 	public double getValue() {
 		return value;
@@ -103,5 +100,9 @@ public class Node {
 
 	public void setyPos(int yPos) {
 		this.yPos = yPos;
+	}
+	
+	public String toString(){
+		return value+" "+def+" "+detect+" "+xPos+" "+yPos+" "+ID;
 	}
 }
