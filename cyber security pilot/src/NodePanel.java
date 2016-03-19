@@ -1,9 +1,6 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -27,7 +24,6 @@ public class NodePanel extends JPanel implements Observer {
 	public void paintNetwork(Graphics g){
 		for(Node n : s.getNw().getNodes()){
 			g.setColor(n.equals(s.getNw().getNodeSelected()) ? Color.ORANGE : Color.YELLOW);
-			int x;
 			
 			if (n.getxPos()<getBounds().getMinX()){
 				n.setxPos((int)getBounds().getMinX());
@@ -87,7 +83,6 @@ public class NodePanel extends JPanel implements Observer {
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
 		this.validate();
 		this.repaint();
 	}

@@ -68,6 +68,46 @@ public class MainFrame extends JFrame {
 
 	    model.addObserver(iPanel);
 	    model.addObserver(nPanel);
+
+
+	    final JTextField numFW = new JTextField(10);
+	    numFW.setText("1");
+	    numFW.setBounds(240, 500, 50, 30);
+	    
+	    JButton graphs = new JButton("graph");
+	    graphs.setBounds(5, 500, 70, 30);
+	    graphs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("MAKE THE GRAPHS BITCH");
+			}
+		});
+	    
+	    JButton stepper = new JButton("step");
+	    stepper.setBounds(80, 500, 70, 30);
+	    stepper.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("ONE STEP FOR SIM ..");
+			}
+		});
+	    
+	    JButton forward = new JButton("forward");
+	    forward.setBounds(155, 500, 80, 30);
+	    forward.addActionListener(new ActionListener() {
+	    	@Override
+	    	public void actionPerformed(ActionEvent e) {
+	    		if(isInteger(numFW.getText())){
+	    			System.out.println("forwarding "+numFW.getText()+" times");
+	    		} else {
+	    			System.out.println("INvalid number");
+	    		}
+	    	}
+	    });
+	    
+	    iPanel.setLayout(null);
+	    iPanel.add(stepper);
+	    iPanel.add(graphs);
+	    iPanel.add(forward);
+	    iPanel.add(numFW);
 	    
 		setTitle("Cyber Security Simulation");
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -136,6 +176,7 @@ public class MainFrame extends JFrame {
 		       	Maker m = new Maker();
 		       	m.load(p);
 		       	model.setNw(m.getN());
+		        model.noti();
 		       	infoMessage("Network loaded");
 		    } catch (Exception e1) {
 		       	errorMessage("Loading network failed");
@@ -231,10 +272,6 @@ public class MainFrame extends JFrame {
         }
 	};
     
-    public static boolean isNumeric(String str) {  
-    	return str.matches("-?\\d+(\\.\\d+)?");  
-    }
-    
     private Action changeNameActiones = new AbstractAction("Change Name") {
     	/**
     	 * Try to pop-up a window in which the user can type the name he wants,
@@ -260,7 +297,6 @@ public class MainFrame extends JFrame {
                 		errorMessage("There is already a node with this name");
                 	}
                 }
-         
              } catch (Exception e1) {
                 errorMessage("Changing the name failed");
              }
@@ -332,7 +368,7 @@ public class MainFrame extends JFrame {
             model.noti();
         }
     };
-    
+	
 	public static void startSimulation() {
 		epochs = 0;
 	}
@@ -352,14 +388,21 @@ public class MainFrame extends JFrame {
         panel.add(lbl);
         JOptionPane.showOptionDialog(null, panel, "Info message", JOptionPane.NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options , "OK");
     }
-	
-    private static int getValue(String s) {
-    	if(s.equals("")) {
-    		return 0;
-    	} else {
-    		Integer num = new Integer(s);
-    		return num.intValue();
-    	}
+
+    
+    public static boolean isNumeric(String str) {  
+    	return str.matches("-?\\d+(\\.\\d+)?");  
+    }
+    
+    public static boolean isInteger(String str) { 
+    	try{
+           Integer.parseInt(str);
+           return true;
+        }
+        catch (NumberFormatException ex)
+        {
+           return false;
+        }  
     }
 	
     public static void main(String args[]){

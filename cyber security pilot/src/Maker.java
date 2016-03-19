@@ -41,11 +41,11 @@ public class Maker {
 			double x,y,z;
 			int w,v;
 			String n;
-			x=s.nextDouble();
-			y=s.nextDouble(); 
-			z=s.nextDouble();
-			w=s.nextInt();
-			v=s.nextInt();
+			x=Double.parseDouble(s.next());
+			y=Double.parseDouble(s.next());
+			z=Double.parseDouble(s.next());
+			w=Integer.parseInt(s.next());
+			v=Integer.parseInt(s.next());
 			s.skip(" ");
 			n= s.nextLine();
 			Node node = new Node(n,x,y,z,w,v);
@@ -53,10 +53,8 @@ public class Maker {
 		}
 		a=0;
 		while(s.hasNextLine() && a++<numCons){
-			String v1, v2;
-			v1=s.nextLine();
+			String v1, v2;v1=s.nextLine();
 			v2=s.nextLine();
-			s.nextLine();
 			Node n1 = network.getNode(v1);
 			Node n2 = network.getNode(v2);
 			n1.addNeighbour(n2);
@@ -81,7 +79,7 @@ public class Maker {
 		int a=0;
 		while(a<nodes.size()){
 			Node n = nodes.get(a);
-			o.println(n.toString());
+			o.println(n);
 			a++;
 		}
 		a=0;
@@ -90,7 +88,6 @@ public class Maker {
 			Node n2 = network.getConnections().get(a).n2;
 			o.println(n1.getID());
 			o.println(n2.getID());
-			o.println();
 			a++;
 		}
 		o.close();

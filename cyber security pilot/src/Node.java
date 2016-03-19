@@ -7,7 +7,6 @@ public class Node {
 	private double value, def, detect;
 	private int xPos, yPos;
 	private String ID;
-	private boolean selected;
 	private ArrayList<Node> neighbours = new ArrayList<Node>();
 	
 	public Node(String ID, double v, double def, double det, int xPos, int yPos){
@@ -17,9 +16,8 @@ public class Node {
 		this.detect=det;
 		this.setxPos(xPos);
 		this.setyPos(yPos);
-		this.selected=false;
 	}
-	
+
 	public Rectangle getRect(){
 		return new Rectangle(getxPos(), getyPos(), 30, 30);
 	}
