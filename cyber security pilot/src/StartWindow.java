@@ -30,8 +30,6 @@ public class StartWindow {
 		body.setLayout(new GridLayout(6, 2));
 		JLabel defender = new JLabel("Strategy for the defender:");
 		JLabel attacker = new JLabel("Strategy for the attacker:");
-		final JTextField[] getStrat = new JTextField[numStrat];
-		String content = "";
 		DefaultComboBoxModel<String> strat1 = new DefaultComboBoxModel<String>();
 		DefaultComboBoxModel<String> strat2 = new DefaultComboBoxModel<String>();
 		String values[] = {"Strategy 1","Strategy 2", "Strategy 3"};
@@ -57,7 +55,7 @@ public class StartWindow {
 		ok.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setup.dispose();
-					setdStrat((String)s2.getSelectedItem());
+					setdStrat((String)s1.getSelectedItem());
 					setaStrat((String)s2.getSelectedItem());
 					setVis(check.isSelected());
 					setAnswered(true);

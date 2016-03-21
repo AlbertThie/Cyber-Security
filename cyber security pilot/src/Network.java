@@ -4,10 +4,19 @@ import java.util.ArrayList;
 public class Network {
 
 	private ArrayList<Node> nodes = new ArrayList<Node>();
+	private ArrayList<Connection> connections = new ArrayList<Connection>();
 	private Node nodeSelected;
 	
-	public Network(){
+	class Connection{
+		public Node n1, n2;
 		
+		public Connection(Node n1, Node n2){
+			this.n1=n1;
+			this.n2=n2;
+		}
+	}
+	
+	public Network(){
 	}
 	
 	public void addNode(Node n){
@@ -32,7 +41,8 @@ public class Network {
 	}
 	
 	public void clearNetwork(){
-		nodes.clear();
+		this.nodes.clear();
+		this.nodeSelected = null;
 	}
 
 	public Node getNodeSelected() {
@@ -41,6 +51,18 @@ public class Network {
 
 	public void setNodeSelected(Node nodeSelected) {
 		this.nodeSelected = nodeSelected;
+	}
+	
+	public void makeConnection(Node n1, Node n2){
+		connections.add(new Connection(n1,n2));
+	}
+
+	public ArrayList<Connection> getConnections() {
+		return connections;
+	}
+
+	public void setConnections(ArrayList<Connection> connections) {
+		this.connections = connections;
 	}
 	
 }
