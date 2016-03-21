@@ -9,7 +9,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 
 public class StartWindow {
@@ -32,7 +31,7 @@ public class StartWindow {
 		JLabel attacker = new JLabel("Strategy for the attacker:");
 		DefaultComboBoxModel<String> strat1 = new DefaultComboBoxModel<String>();
 		DefaultComboBoxModel<String> strat2 = new DefaultComboBoxModel<String>();
-		String values[] = {"Strategy 1","Strategy 2", "Strategy 3"};
+		String values[] = {"Random","Strategy 2", "Strategy 3"};
 		for(String value : values){
 			strat1.addElement(value);
 			strat2.addElement(value);

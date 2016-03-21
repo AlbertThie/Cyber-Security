@@ -9,9 +9,10 @@ public class Simulation extends Observable {
 	private double rewardRatio;
 	
 	public Simulation() {
-		setdAgent(new DefenderAgent());
-		setaAgent(new AttackAgent());
 		nw = new Network();
+		nw.addNode(new Node("Start", 0.0, 0.0, 30, 30, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+		setdAgent(new DefenderAgent(1000, nw));
+		setaAgent(new AttackAgent(1000,nw.getNodes().get(0)));
 	}
 
 	public DefenderAgent getdAgent() {
