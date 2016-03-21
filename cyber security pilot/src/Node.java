@@ -7,7 +7,6 @@ public class Node {
 	private double value, def, detect;
 	private int xPos, yPos;
 	private String ID;
-	private boolean selected;
 	private ArrayList<Node> neighbours = new ArrayList<Node>();
 	
 	public Node(String ID, double v, double def, double det, int xPos, int yPos){
@@ -17,9 +16,8 @@ public class Node {
 		this.detect=det;
 		this.setxPos(xPos);
 		this.setyPos(yPos);
-		this.selected=false;
 	}
-	
+
 	public Rectangle getRect(){
 		return new Rectangle(getxPos(), getyPos(), 30, 30);
 	}
@@ -52,9 +50,6 @@ public class Node {
 			s+=n.getID();
 		}
 		return s;
-	}
-	public String toString(){
-		return "Name: "+ID+"/nNeighbours: "+drawNeighbours()+"/nValue: "+value;
 	}
 
 	public double getValue() {
@@ -103,5 +98,9 @@ public class Node {
 
 	public void setyPos(int yPos) {
 		this.yPos = yPos;
+	}
+	
+	public String toString(){
+		return value+" "+def+" "+detect+" "+xPos+" "+yPos+" "+ID;
 	}
 }

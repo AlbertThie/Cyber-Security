@@ -13,7 +13,8 @@ public class AAction extends Action {
 			return current;
 		
 	}
-	public double injection (Node current, Double invest){
+	
+	/*public double injection (Node current, Double invest){
 		//easy explotation and common prevelance
 		double diff = 1.5;
 		double detectability = 1;
@@ -21,15 +22,15 @@ public class AAction extends Action {
 		if(value > 0)
 			flag(current, detectability);	
 		return value;
-	}
+	}*/
 	
 	public double injection (Node current, Double invest){
 		//easy explotation and common prevelance
 		double diff = 1.5;
 		double detectability = 1;
 		double value = Math.max(0,(diff * invest -current.getDef()));
-		if(value > 0)
-			flag(current, detectability);	
+		if(value > 0){}
+			//flag(current, detectability);	
 		return value;
 	}
 }
