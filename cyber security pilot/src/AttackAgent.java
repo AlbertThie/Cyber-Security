@@ -7,8 +7,10 @@ public class AttackAgent extends Agent {
 	private Node currentNode;
 	private int resource;
 	public final String options[] = {"Move", "Injection", "Authentication", "CrossSite", "References", "Misconfiguration", "Exposure", "Access","Forgery", "Vulnerabilities", "Redirects"};
-	public AttackAgent(){
+	public AttackAgent(int money, Node n){
 		super();
+		this.setResource(money);
+		this.setCurrentNode(n);
 	}
 	
 

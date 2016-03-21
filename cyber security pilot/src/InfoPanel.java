@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -36,8 +35,8 @@ public class InfoPanel extends JPanel implements Observer {
         g.drawString("Current selected node: "+(sel==null?"no node selected":sel.getID()), xStart, yStart+35);
         if(sel!= null){
         	g.drawString("Detection value: "+sel.getDetect(), xStart, yStart+50);
-        	g.drawString("Attacking value: "+sel.getAtt(), xStart, yStart+65);
-        	g.drawString("Defensive value: "+sel.getDef(), xStart, yStart+80);
+        	g.drawString("Attacking value: "+sel.getDefAccess(), xStart, yStart+65);
+        	g.drawString("Defensive value: "+sel.getDefInjection(), xStart, yStart+80);
         	g.drawString("Asset value: "+sel.getValue(), xStart, yStart+95);
         	g.drawString("Number of neighbouring nodes: "+sel.getNeighbours().size(), xStart, yStart+110);
         	
