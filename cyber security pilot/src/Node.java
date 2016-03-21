@@ -27,6 +27,7 @@ public class Node {
 		this.setDetect(det);
 		this.setxPos(xPos);
 		this.setyPos(yPos);
+		this.setDefAuthentication(defAuthentication);
 	}
 
 	public Rectangle getRect(){
@@ -76,6 +77,7 @@ public class Node {
 	public void changeValue(double change){
 		this.value = getValue() + change ;
 	}
+
 	
 	public double getDetect() {
 		return detect;

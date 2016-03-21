@@ -6,7 +6,7 @@ public class AttackAgent extends Agent {
 	
 	private Node currentNode;
 	private int resource;
-	
+	private final String options[] = {"Move", "Injection", "Authentication", "CrossSite", "References", "Misconfiguration", "Exposure", "Access","Forgery", "Vulnerabilities", "Redirects"};
 	public AttackAgent(){
 		super();
 	}
@@ -21,7 +21,7 @@ public class AttackAgent extends Agent {
 		this.currentNode = currentNode;
 	}
 	
-	private void Move(){
+	public void Move(){
 		ArrayList<Node> current = currentNode.getNeighbours();
 		int randomWidth = current.size();
 		Random randomGenerator = new Random();
@@ -152,6 +152,7 @@ public class AttackAgent extends Agent {
 		}
 		
 		
+		
 	}
 
 
@@ -162,5 +163,18 @@ public class AttackAgent extends Agent {
 
 	public void setResource(int resource) {
 		this.resource = resource;
+	}
+	public void attackerStep(){
+		if (this.getStrategy() == "Random" ){
+			Random randomGenerator = new Random();
+			int pick = randomGenerator.nextInt(11);
+			if(pick == 0){
+				this.Move();
+			}else{
+				int invest = randomGenerator.nextInt(100);
+				this.resource = this.getResource() - invest;
+				this.attack(this.options[pick], invest);
+			}
+		}
 	}
 }
