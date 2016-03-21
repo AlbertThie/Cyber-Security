@@ -8,7 +8,6 @@ public class Node {
 	private double value, defInjection, defAuthentication, defCrossSite, defReferences, defMisconfiguration, defExposure, defAccess, defForgery, defVulnerabilities, defRedirects, detect;
 	private int xPos, yPos;
 	private String ID;
-	private boolean selected;
 	private ArrayList<Node> neighbours = new ArrayList<Node>();
 	
 	
@@ -28,9 +27,8 @@ public class Node {
 		this.setDetect(det);
 		this.setxPos(xPos);
 		this.setyPos(yPos);
-		this.selected=false;
 	}
-	
+
 	public Rectangle getRect(){
 		return new Rectangle(getxPos(), getyPos(), 30, 30);
 	}
@@ -63,9 +61,6 @@ public class Node {
 			s+=n.getID();
 		}
 		return s;
-	}
-	public String toString(){
-		return "Name: "+ID+"/nNeighbours: "+drawNeighbours()+"/nValue: "+value;
 	}
 
 	public double getValue() {
@@ -197,7 +192,12 @@ public class Node {
 		Random rand;
 		double flagChance = rand.nextInt(100)
 		if (this.detect * diff <= flagChance){
-			//warn defender)
+			//warn defender
 		}
+
+	
+	public String toString(){
+		return value+" "+def+" "+detect+" "+xPos+" "+yPos+" "+ID;
+
 	}
 }
