@@ -34,8 +34,11 @@ public class NodePanel extends JPanel implements Observer {
 			if (n.getyPos()<getBounds().getMinY()){
 				n.setyPos((int)getBounds().getMinY());
 			} 
-			if(n.getyPos()>getBounds().getMaxY()-nodesize){
+			/*if(n.getyPos()>getBounds().getMaxY()-nodesize){
 				n.setyPos((int)getBounds().getMaxY()-nodesize);
+			}*/
+			if(n.getyPos()>690){
+				n.setyPos(690);
 			}
 			g.drawOval(n.getxPos(), n.getyPos(), nodesize, nodesize);
 			g.fillOval(n.getxPos(), n.getyPos(), nodesize, nodesize);
