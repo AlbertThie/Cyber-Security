@@ -1,15 +1,9 @@
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JFileChooser;
 
 
 public class Maker {
@@ -48,7 +42,7 @@ public class Maker {
 			v=Integer.parseInt(s.next());
 			s.skip(" ");
 			n= s.nextLine();
-			Node node = new Node(n,x,y,z,w,v);
+			Node node = new Node(n,x,y,w, v, z, z, z, z, z, z, z, z, z, z);
 			network.getNodes().add(node);
 		}
 		a=0;
