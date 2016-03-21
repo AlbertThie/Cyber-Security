@@ -60,7 +60,7 @@ public class Selectioncontroller implements MouseListener, MouseMotionListener {
         Network nw = s.getNw();
         int b=0;
         boolean f=false;
-        System.out.println("Clicked on "+xSel+" "+ySel);
+        //System.out.println("Clicked on "+xSel+" "+ySel);
         while(b<nw.getNodes().size() && !f){
             Node n = nw.getNodes().get(b);
             Rectangle r = n.getRect();

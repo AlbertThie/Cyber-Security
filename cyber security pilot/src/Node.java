@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Node {
 
-	private double value, def, detect;
+	private double value, def, detect, att;
 	private int xPos, yPos;
 	private String ID;
 	private ArrayList<Node> neighbours = new ArrayList<Node>();
@@ -13,6 +13,7 @@ public class Node {
 		this.setID(ID);
 		this.value=v;
 		this.def=def;
+		this.setAtt(0);
 		this.detect=det;
 		this.setxPos(xPos);
 		this.setyPos(yPos);
@@ -102,5 +103,13 @@ public class Node {
 	
 	public String toString(){
 		return value+" "+def+" "+detect+" "+xPos+" "+yPos+" "+ID;
+	}
+
+	public double getAtt() {
+		return att;
+	}
+
+	public void setAtt(double att) {
+		this.att = att;
 	}
 }
