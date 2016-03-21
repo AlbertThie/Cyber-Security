@@ -25,7 +25,7 @@ public class InfoPanel extends JPanel implements Observer {
 	public void paintNodeInfo(Graphics g, int yStart){
 		g.setColor(Color.YELLOW);
 		int xStart = 10;
-		Rectangle rect=new Rectangle(5,yStart,300,100);
+		Rectangle rect=new Rectangle(5,yStart,300,120);
         Node sel = s.getNw().getNodeSelected();
 		g.drawRoundRect(rect.x, rect.y, rect.width, rect.height, 10, 5);
 		g.setColor(new Color(219,211,90));
@@ -36,9 +36,11 @@ public class InfoPanel extends JPanel implements Observer {
         g.drawString("Current selected node: "+(sel==null?"no node selected":sel.getID()), xStart, yStart+35);
         if(sel!= null){
         	g.drawString("Detection value: "+sel.getDetect(), xStart, yStart+50);
-        	g.drawString("Defensive value: "+sel.getDef(), xStart, yStart+65);
-        	g.drawString("Asset value: "+sel.getValue(), xStart, yStart+80);
-        	g.drawString("Number of neighbouring nodes: "+sel.getNeighbours().size(), xStart, yStart+95);
+        	g.drawString("Attacking value: "+sel.getAtt(), xStart, yStart+65);
+        	g.drawString("Defensive value: "+sel.getDef(), xStart, yStart+80);
+        	g.drawString("Asset value: "+sel.getValue(), xStart, yStart+95);
+        	g.drawString("Number of neighbouring nodes: "+sel.getNeighbours().size(), xStart, yStart+110);
+        	
         }
 	}
 

@@ -38,7 +38,7 @@ public class AttackAgent extends Agent {
 				double damage = Math.round(1.5 * outcome);
 				currentNode.changeValue(damage);
 				this.resource = (int) (-2 * damage) + getResource();
-				}
+				}	
 				
 			}
 			

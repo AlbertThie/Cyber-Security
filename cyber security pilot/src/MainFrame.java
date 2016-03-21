@@ -1,8 +1,10 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.AbstractAction;
@@ -78,7 +80,7 @@ public class MainFrame extends JFrame {
 	    graphs.setBounds(5, 500, 70, 30);
 	    graphs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("MAKE THE GRAPHS BITCH");
+				GraphSelector gs = new GraphSelector(model);
 			}
 		});
 	    

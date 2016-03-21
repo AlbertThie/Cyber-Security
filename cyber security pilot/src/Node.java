@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Node {
 
+
 	private double value, defInjection, defAuthentication, defCrossSite, defReferences, defMisconfiguration, defExposure, defAccess, defForgery, defVulnerabilities, defRedirects, detect;
 	private int xPos, yPos;
 	private String ID;
@@ -202,4 +203,5 @@ public class Node {
 		return value+" "+defInjection+" "+defAuthentication+" "+defCrossSite+" "+defReferences+" "+defMisconfiguration+" "+defExposure+" "+defAccess+" "+defForgery+" "+defVulnerabilities+" "+defRedirects+" "+detect+" "+xPos+" "+yPos+" "+ID;
 
 	}
+
 }
