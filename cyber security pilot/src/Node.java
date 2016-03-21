@@ -191,15 +191,15 @@ public class Node {
 	}
 	
 	public void flag(double diff){
-		Random rand;
-		double flagChance = rand.nextInt(100)
+		Random rand = null;
+		double flagChance = rand.nextInt(100);
 		if (this.detect * diff <= flagChance){
 			//warn defender
 		}
 
-	
+	}
 	public String toString(){
-		return value+" "+def+" "+detect+" "+xPos+" "+yPos+" "+ID;
+		return value+" "+defInjection+" "+defAuthentication+" "+defCrossSite+" "+defReferences+" "+defMisconfiguration+" "+defExposure+" "+defAccess+" "+defForgery+" "+defVulnerabilities+" "+defRedirects+" "+detect+" "+xPos+" "+yPos+" "+ID;
 
 	}
 }
