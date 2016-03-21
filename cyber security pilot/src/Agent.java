@@ -2,10 +2,8 @@
 public class Agent {
 	
 	private String strategy;
+	private Network nw;
 	
-	public Agent(){
-		
-	}
 
 	public String getStrategy() {
 		return strategy;
@@ -19,5 +17,15 @@ public class Agent {
 		int x = 50;
 		return x;
 	}
+
+	public Network getNw() {
+		return nw;
+	}
+
+	public void setNw(Network nw) {
+		this.nw = nw;
+	}
+	
+	
 	
 }
