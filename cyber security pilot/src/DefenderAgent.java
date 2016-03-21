@@ -1,7 +1,9 @@
+import java.util.Random;
 
 public class DefenderAgent extends Agent {
 
 	private int resources; 
+	public final String options[] = {"Injection", "Authentication", "CrossSite", "References", "Misconfiguration", "Exposure", "Access","Forgery", "Vulnerabilities", "Redirects"};
 	public DefenderAgent(){
 		super();
 	}
@@ -75,4 +77,19 @@ public class DefenderAgent extends Agent {
 		
 		
 	}
+	public void defenderStep(){
+		if(this.getStrategy() == "Random"){
+			Random rand = new Random();
+			int numActions = rand.nextInt(this.getNw().getNodes().size());
+			for (int i = 0; i < numActions; i++ ){
+				int investment = rand.nextInt(25);
+				int target = rand.nextInt(this.getNw().getNodes().size());
+				this.setResources(this.getResources() - investment);
+				this.defend(this.options[rand.nextInt(10)], investment, target);
+				
+			}
+		}
+	}
+	
+	
 }

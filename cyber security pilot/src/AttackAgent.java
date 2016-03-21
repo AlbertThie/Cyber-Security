@@ -6,7 +6,7 @@ public class AttackAgent extends Agent {
 	
 	private Node currentNode;
 	private int resource;
-	private final String options[] = {"Move", "Injection", "Authentication", "CrossSite", "References", "Misconfiguration", "Exposure", "Access","Forgery", "Vulnerabilities", "Redirects"};
+	public final String options[] = {"Move", "Injection", "Authentication", "CrossSite", "References", "Misconfiguration", "Exposure", "Access","Forgery", "Vulnerabilities", "Redirects"};
 	public AttackAgent(){
 		super();
 	}
@@ -38,11 +38,10 @@ public class AttackAgent extends Agent {
 				double damage = Math.round(1.5 * outcome);
 				currentNode.changeValue(damage);
 				this.resource = (int) (-2 * damage) + getResource();
-				
+				}
 				
 			}
 			
-		}
 		if (attackType == "Authentication"){
 			investment = 1.0 * investment;
 			double outcome = Math.min(currentNode.getDefAuthentication() - investment, 0);
@@ -121,7 +120,6 @@ public class AttackAgent extends Agent {
 				double damage = Math.round(outcome);
 				currentNode.changeValue(damage);
 				this.resource = (int) (-2 * damage) + getResource();
-				
 			}
 			
 		}	if (attackType == "Vulnerabilities"){

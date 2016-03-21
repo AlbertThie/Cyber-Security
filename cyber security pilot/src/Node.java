@@ -191,7 +191,7 @@ public class Node {
 	}
 	
 	public void flag(double diff){
-		Random rand = null;
+		Random rand = new Random();
 		double flagChance = rand.nextInt(100);
 		if (this.detect * diff <= flagChance){
 			//warn defender
