@@ -27,6 +27,7 @@ public class Node {
 		this.setDetect(det);
 		this.setxPos(xPos);
 		this.setyPos(yPos);
+		this.setDefAuthentication(defAuthentication);
 	}
 
 	public Rectangle getRect(){
@@ -76,6 +77,7 @@ public class Node {
 	public void changeValue(double change){
 		this.value = getValue() + change ;
 	}
+
 	
 	public double getDetect() {
 		return detect;
@@ -189,15 +191,15 @@ public class Node {
 	}
 	
 	public void flag(double diff){
-		Random rand;
-		double flagChance = rand.nextInt(100)
+		Random rand = new Random();
+		double flagChance = rand.nextInt(100);
 		if (this.detect * diff <= flagChance){
 			//warn defender
 		}
 
-	
+	}
 	public String toString(){
-		return value+" "+def+" "+detect+" "+xPos+" "+yPos+" "+ID;
+		return value+" "+defInjection+" "+defAuthentication+" "+defCrossSite+" "+defReferences+" "+defMisconfiguration+" "+defExposure+" "+defAccess+" "+defForgery+" "+defVulnerabilities+" "+defRedirects+" "+detect+" "+xPos+" "+yPos+" "+ID;
 
 	}
 }

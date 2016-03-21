@@ -6,6 +6,7 @@ public class Simulation extends Observable {
 	private DefenderAgent dAgent;
 	private AttackAgent aAgent;
 	private Network nw;
+	private double rewardRatio;
 	
 	public Simulation() {
 		setdAgent(new DefenderAgent());
@@ -36,9 +37,28 @@ public class Simulation extends Observable {
 	public void setNw(Network nw) {
 		this.nw = nw;
 	}
-	
+	public void rewardDefender(){
+		for(Node n : this.getNw().getNodes()){
+			dAgent.setResources((int) Math.round(dAgent.getResources() + (n.getValue() * rewardRatio )));
+			
+		}
+	}
+	public void modelStep(){
+		getaAgent().attackerStep();
+		getdAgent().defenderStep();
+		this.rewardDefender();
+		
+	}
 	public void noti(){
 		this.setChanged();
 		this.notifyObservers();
+	}
+
+	public double getRewardRatio() {
+		return rewardRatio;
+	}
+
+	public void setRewardRatio(double rewardRatio) {
+		this.rewardRatio = rewardRatio;
 	}
 }
