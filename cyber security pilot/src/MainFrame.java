@@ -86,6 +86,7 @@ public class MainFrame extends JFrame {
 	    stepper.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				model.modelStep();
+				model.noti();
 				System.out.println("ONE STEP FOR SIM ..");
 			}
 		});
@@ -96,6 +97,10 @@ public class MainFrame extends JFrame {
 	    	@Override
 	    	public void actionPerformed(ActionEvent e) {
 	    		if(isInteger(numFW.getText())){
+	    			for(int i=0;i<Double.parseDouble(numFW.getText());i++){
+	    				model.modelStep();
+	    			}
+	    			model.noti();
 	    			System.out.println("forwarding "+numFW.getText()+" times");
 	    		} else {
 	    			System.out.println("INvalid number");
