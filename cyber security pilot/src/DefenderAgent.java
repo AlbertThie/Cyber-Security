@@ -19,6 +19,7 @@ public class DefenderAgent extends Agent {
 	public void defend(String type, int investment, int nodeID){
 		if( type == "Injection"){
 			Node current = this.getWorld().getNodes().get(nodeID);
+			
 			current.setDefInjection(current.getDefInjection() + investment );
 			
 			
