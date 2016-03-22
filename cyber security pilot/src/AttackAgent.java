@@ -38,11 +38,16 @@ public class AttackAgent extends Agent {
 			if(outcome < 0){
 				currentNode.flag(1);
 				double damage = Math.round(1.5 * outcome);
+				if(currentNode.getValue() < damage ){
+					this.resource = (int) (getResource() + currentNode.getValue());
+					currentNode.setValue(0);
+				}else{
 				currentNode.changeValue(damage);
 				this.resource = (int) (-2 * damage) + getResource();
-				}	
+				}
+			}	
 				
-			}
+		}
 			
 		if (attackType == "Authentication"){
 			investment = 1.0 * investment;
@@ -50,9 +55,13 @@ public class AttackAgent extends Agent {
 			if(outcome < 0){
 				currentNode.flag(1);
 				double damage = Math.round(1.5 * outcome);
+				if(currentNode.getValue() < damage ){
+					this.resource = (int) (getResource() + currentNode.getValue());
+					currentNode.setValue(0);
+				}else{
 				currentNode.changeValue(damage);
 				this.resource = (int) (-2 * damage) + getResource();
-				
+				}
 				
 			}
 			
@@ -63,10 +72,13 @@ public class AttackAgent extends Agent {
 			if(outcome < 0){
 				currentNode.flag(1.5);
 				double damage = Math.round(outcome);
+				if(currentNode.getValue() < damage ){
+					this.resource = (int) (getResource() + currentNode.getValue());
+					currentNode.setValue(0);
+				}else{
 				currentNode.changeValue(damage);
 				this.resource = (int) (-2 * damage) + getResource();
-				
-				
+				}
 			}
 			
 		}	if (attackType == "References"){
@@ -75,9 +87,13 @@ public class AttackAgent extends Agent {
 			if(outcome < 0){
 				currentNode.flag(1.5);
 				double damage = Math.round(outcome);
+				if(currentNode.getValue() < damage ){
+					this.resource = (int) (getResource() + currentNode.getValue());
+					currentNode.setValue(0);
+				}else{
 				currentNode.changeValue(damage);
 				this.resource = (int) (-2 * damage) + getResource();
-				
+				}
 			}
 			
 		}	if (attackType == "Misconfiguration"){
@@ -86,10 +102,13 @@ public class AttackAgent extends Agent {
 			if(outcome < 0){
 				currentNode.flag(1.5);
 				double damage = Math.round(outcome);
+				if(currentNode.getValue() < damage ){
+					this.resource = (int) (getResource() + currentNode.getValue());
+					currentNode.setValue(0);
+				}else{
 				currentNode.changeValue(damage);
 				this.resource = (int) (-2 * damage) + getResource();
-				
-				
+				}
 			}
 			
 		}	if (attackType == "Exposure"){
@@ -98,9 +117,13 @@ public class AttackAgent extends Agent {
 			if(outcome < 0){
 				currentNode.flag(1);
 				double damage = Math.round( 1.5 * outcome);
+				if(currentNode.getValue() < damage ){
+					this.resource = (int) (getResource() + currentNode.getValue());
+					currentNode.setValue(0);
+				}else{
 				currentNode.changeValue(damage);
 				this.resource = (int) (-2 * damage) + getResource();
-				
+				}
 			}
 			
 		}	if (attackType == "Access"){
@@ -109,9 +132,13 @@ public class AttackAgent extends Agent {
 			if(outcome < 0){
 				currentNode.flag(1);
 				double damage = Math.round(outcome);
+				if(currentNode.getValue() < damage ){
+					this.resource = (int) (getResource() + currentNode.getValue());
+					currentNode.setValue(0);
+				}else{
 				currentNode.changeValue(damage);
 				this.resource = (int) (-2 * damage) + getResource();
-				
+				}
 			}
 			
 		}	if (attackType == "Forgery"){
@@ -120,8 +147,13 @@ public class AttackAgent extends Agent {
 			if(outcome < 0){
 				currentNode.flag(1.5);
 				double damage = Math.round(outcome);
+				if(currentNode.getValue() < damage ){
+					this.resource = (int) (getResource() + currentNode.getValue());
+					currentNode.setValue(0);
+				}else{
 				currentNode.changeValue(damage);
 				this.resource = (int) (-2 * damage) + getResource();
+				}
 			}
 			
 		}	if (attackType == "Vulnerabilities"){
@@ -130,9 +162,13 @@ public class AttackAgent extends Agent {
 			if(outcome < 0){
 				currentNode.flag(0.5);
 				double damage = Math.round(outcome);
+				if(currentNode.getValue() < damage ){
+					this.resource = (int) (getResource() + currentNode.getValue());
+					currentNode.setValue(0);
+				}else{
 				currentNode.changeValue(damage);
 				this.resource = (int) (-2 * damage) + getResource();
-				
+				}
 				
 			}
 			
@@ -142,10 +178,13 @@ public class AttackAgent extends Agent {
 			if(outcome < 0){
 				currentNode.flag(1.5);
 				double damage = Math.round(outcome);
+				if(currentNode.getValue() < damage ){
+					this.resource = (int) (getResource() + currentNode.getValue());
+					currentNode.setValue(0);
+				}else{
 				currentNode.changeValue(damage);
 				this.resource = (int) (-2 * damage) + getResource();
-				
-				
+				}
 				
 			}
 			
