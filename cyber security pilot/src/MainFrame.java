@@ -1,17 +1,14 @@
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
@@ -88,6 +85,7 @@ public class MainFrame extends JFrame {
 	    stepper.setBounds(80, 500, 70, 30);
 	    stepper.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				model.modelStep();
 				System.out.println("ONE STEP FOR SIM ..");
 			}
 		});
@@ -254,7 +252,8 @@ public class MainFrame extends JFrame {
 			    								new Node(id_txt.getText(), 
 			    										 Double.parseDouble(ass_txt.getText()), 
 			    										 Double.parseDouble(def_txt.getText()), 
-			    										 Double.parseDouble(det_txt.getText()), 30, 30));
+			    										 30, 30,
+			    										 Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText())));
 			    						model.noti();
 		    						} else {
 		    							infoMessage("Not a number");

@@ -49,7 +49,6 @@ public class InfoPanel extends JPanel implements Observer {
         	g.drawString("Asset value: "+sel.getValue(), xStart, yStart+215);
         //	g.drawString("Number of neighbouring nodes: "+sel.getNeighbours().size(), xStart, yStart+110);
         	
-        	
         }
 	}
 
