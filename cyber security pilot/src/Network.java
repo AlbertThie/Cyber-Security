@@ -15,7 +15,6 @@ public class Network {
 			this.n2=n2;
 		}
 	}
-	
 	public Network(){
 	}
 	
