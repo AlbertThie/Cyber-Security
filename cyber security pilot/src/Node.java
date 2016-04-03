@@ -76,7 +76,7 @@ public class Node {
 	
 	
 	public void changeValue(double change){
-		this.value = getValue() + change ;
+		this.value = Math.max(0.0, getValue() + change) ;
 	}
 
 	
