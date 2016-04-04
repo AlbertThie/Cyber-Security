@@ -7,14 +7,24 @@ public class AttackState {
 	// Defender has 10 defense values, so D^10 different defense value combinations (D = max def value).
 	// Defender has 10 different def values to increment (fixed incr. value), so 10*D^10 different state-actions. 
 	
-	private double networkState; 	// resources?
-	private double action; 			// resources ingezet?
-	private double Qvalue; 			// Qvalue voor dit state-actie paar
+	// STATE
+	private Node node;
+	private double resources; 	// resources?
 	
+	// ACTION
+	private String attackType;
+	private double action; 			// resources ingezet?
+	
+	// PARAMS
+	private double Qvalue;
 	private double alpha;			// learning rate
 	
-	public AttackState(double networkState, double action){
-		this.setNetworkState(networkState);
+	
+	public AttackState(Node n, double resources, String attType, double action, double alpha){
+		this.setNode(n);
+		this.setAlpha(alpha);
+		this.setAttackType(attType);
+		this.setResources(resources);
 		this.setAction(action);
 	}
 
@@ -26,12 +36,12 @@ public class AttackState {
 		setQvalue(newq);
 	}
 	
-	public double getNetworkState() {
-		return networkState;
+	public double getResources() {
+		return resources;
 	}
 
-	public void setNetworkState(double networkState) {
-		this.networkState = networkState;
+	public void setResources(double resources) {
+		this.resources = resources;
 	}
 
 	public double getAction() {
@@ -41,7 +51,7 @@ public class AttackState {
 	public void setAction(double action) {
 		this.action = action;
 	}
-
+	
 	public double getQvalue() {
 		return Qvalue;
 	}
@@ -56,5 +66,21 @@ public class AttackState {
 
 	public void setAlpha(double alpha) {
 		this.alpha = alpha;
+	}
+
+	public Node getNode() {
+		return node;
+	}
+
+	public void setNode(Node node) {
+		this.node = node;
+	}
+
+	public String getAttackType() {
+		return attackType;
+	}
+
+	public void setAttackType(String attackType) {
+		this.attackType = attackType;
 	}
 }

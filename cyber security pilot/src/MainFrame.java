@@ -30,18 +30,6 @@ public class MainFrame extends JFrame {
 	static int ySize = 500;
 	static int epochs = 0;
 	static Random gen = new Random();
-
-	// Strategy variables
-	static String[] strategies = {
-		"ALL-D",
-		"TIT-FOR-TAT",
-		"GRUMPY",
-		"JOSS",
-		"TRUST",
-		"TWISTER"
-	};
-	
-	static int numStrategies = strategies.length;
 	
 	// Visualization variables
 	static InfoPanel iPanel;

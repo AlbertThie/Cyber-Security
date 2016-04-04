@@ -4,12 +4,15 @@ import java.util.Random;
 public class AttackAgent extends Agent {
 	
 	private Node currentNode;
-	private int resource;
+	private double resource;
 	public final String options[] = {"Move", "Injection", "Authentication", "CrossSite", "References", "Misconfiguration", "Exposure", "Access","Forgery", "Vulnerabilities", "Redirects"};
+	private ArrayList<AttackState> states;
+	
 	public AttackAgent(int money, Node n){
 		super();
 		this.setResource(money);
 		this.setCurrentNode(n);
+		this.setStates(new ArrayList<AttackState>());
 	}
 
 	public Node getCurrentNode() {
@@ -21,11 +24,34 @@ public class AttackAgent extends Agent {
 		this.currentNode = currentNode;
 	}
 	
+	public AttackState findState(){
+		for(AttackState a : getStates()){
+			if(a.getNode().getID().equals(getCurrentNode().getID()) && a.getResources()==getResource() ){
+				return a;
+			}
+		}
+		return null;
+	}
+	
+	public void updateQLearn(double reward, double discount){
+		AttackState curstate = findState();
+		if(curstate==null){
+			double alpha = 1;
+			String attType = ""; // attack type
+			double inv = 0; // attack value
+			AttackState newState = new AttackState(getCurrentNode(), resource, attType, inv, alpha);
+		} else {
+			curstate.updateQvalue(reward, discount);
+		}
+	}
+	
 	public void Move() {
 		ArrayList<Node> current = currentNode.getNeighbours();
-		int randomWidth = current.size();
-		Random randomGenerator = new Random();
-		setCurrentNode(current.get(randomGenerator.nextInt(randomWidth)));
+		if(current.size()>0){
+			int randomWidth = current.size();
+			Random randomGenerator = new Random();
+			setCurrentNode(current.get(randomGenerator.nextInt(randomWidth)));
+		}
 	}
 	
 	public void  attack(String attackType, double investment) {
@@ -183,7 +209,7 @@ public class AttackAgent extends Agent {
 	}
 
 
-	public int getResource() {
+	public double getResource() {
 		return resource;
 	}
 
@@ -195,7 +221,8 @@ public class AttackAgent extends Agent {
 	public void attackerStep(){
 		if (this.getStrategy() == "Random" ) {
 			Random randomGenerator = new Random();
-			int pick = randomGenerator.nextInt(11);
+			int pick;
+			pick = currentNode.getNeighbours().size()>0 ? randomGenerator.nextInt(11) : randomGenerator.nextInt(10)+1;
 			if(pick == 0) {
 				this.Move();
 			} else {
@@ -204,5 +231,13 @@ public class AttackAgent extends Agent {
 				this.attack(this.options[pick], invest);
 			}
 		}
+	}
+
+	public ArrayList<AttackState> getStates() {
+		return states;
+	}
+
+	public void setStates(ArrayList<AttackState> states) {
+		this.states = states;
 	}
 }

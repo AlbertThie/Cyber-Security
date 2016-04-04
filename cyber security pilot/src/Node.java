@@ -10,6 +10,7 @@ public class Node {
 	private int xPos, yPos;
 	private String ID;
 	private ArrayList<Node> neighbours = new ArrayList<Node>();
+	private boolean detected;
 	
 	
 	public Node(String ID, double v, double det, int xPos, int yPos, double defVulnerabilities, double defForgery,double defExposure, double defReferences, double defCrossSite, double defAuthentication, double defInjection, double defMisconfiguration, double defRedirects, double defAccess){
@@ -29,6 +30,7 @@ public class Node {
 		this.setxPos(xPos);
 		this.setyPos(yPos);
 		this.setDefAuthentication(defAuthentication);
+		this.setDetected(false);
 	}
 
 	public Rectangle getRect(){
@@ -194,14 +196,22 @@ public class Node {
 	public void flag(double diff){
 		Random rand = new Random();
 		double flagChance = rand.nextInt(100);
-		if (this.detect * diff <= flagChance){
-			//warn defender
+		if (this.detect * diff > flagChance){ // was <=, leek niet goed
+			setDetected(true);
 		}
 
 	}
 	public String toString(){
 		return value+" "+defInjection+" "+defAuthentication+" "+defCrossSite+" "+defReferences+" "+defMisconfiguration+" "+defExposure+" "+defAccess+" "+defForgery+" "+defVulnerabilities+" "+defRedirects+" "+detect+" "+xPos+" "+yPos+" "+ID;
 
+	}
+
+	public boolean isDetected() {
+		return detected;
+	}
+
+	public void setDetected(boolean detected) {
+		this.detected = detected;
 	}
 
 }
