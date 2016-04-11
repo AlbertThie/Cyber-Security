@@ -31,7 +31,7 @@ public class StartWindow {
 		JLabel attacker = new JLabel("Strategy for the attacker:");
 		DefaultComboBoxModel<String> strat1 = new DefaultComboBoxModel<String>();
 		DefaultComboBoxModel<String> strat2 = new DefaultComboBoxModel<String>();
-		String values[] = {"Random","Strategy 2", "Strategy 3"};
+		String values[] = {"Random","Q-Learning"};
 		for(String value : values){
 			strat1.addElement(value);
 			strat2.addElement(value);

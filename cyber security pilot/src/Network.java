@@ -15,7 +15,19 @@ public class Network {
 			this.n2=n2;
 		}
 	}
+	
 	public Network(){
+	}
+	
+	public Network getClone(){
+		Network nw = null;
+		try {
+			nw = (Network)this.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return nw;
 	}
 	
 	public void addNode(Node n){

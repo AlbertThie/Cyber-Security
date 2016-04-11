@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 
 public class Agent {
 	
@@ -26,6 +28,8 @@ public class Agent {
 		this.nw = nw;
 	}
 	
-	
+	public void updateQLearn(){
+		
+	}
 	
 }
