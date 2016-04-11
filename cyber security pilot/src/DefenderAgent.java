@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class DefenderAgent extends Agent {
@@ -5,23 +6,41 @@ public class DefenderAgent extends Agent {
 	private int resources; 
 	private Network world;
 	public final String options[] = {"Injection", "Authentication", "CrossSite", "References", "Misconfiguration", "Exposure", "Access","Forgery", "Vulnerabilities", "Redirects"};
+	private ArrayList<DefendState> states;
+	
 	public DefenderAgent(int monies, Network nw){
 		super();
 		this.setResources(monies);
 		this.setWorld(nw);
+		this.setStates(new ArrayList<DefendState>());
 	}
-	public int getResources() {
-		return resources;
+	
+	public DefendState findState(){
+		for(DefendState d : getStates()){
+			if(d.getResources()==getResources() && d.getNetworkState().equals(getWorld())){
+				return d;
+			}
+		}
+		return null;
 	}
-	public void setResources(int resources) {
-		this.resources = resources;
+	
+	public void updateQLearn(double reward, double discount){
+		DefendState curstate = findState();
+		if(curstate==null){
+			double alpha = 1;
+			Node node = null; // node waarin is verhoogd
+			String deftype = ""; // defense type dat is verhoogd
+			double inv = 0; // investment in de defense type
+			DefendState newState = new DefendState(getNw(), resources, node, deftype, inv, alpha);
+		} else {
+			curstate.updateQvalue(reward, discount);
+		}
 	}
+	
 	public void defend(String type, int investment, int nodeID){
 		if( type == "Injection"){
 			Node current = this.getWorld().getNodes().get(nodeID);
 			current.setDefInjection(current.getDefInjection() + investment );
-			
-			
 		}
 		if( type == "Authentication"){
 			Node current = this.getWorld().getNodes().get(nodeID);
@@ -76,10 +95,9 @@ public class DefenderAgent extends Agent {
 			current.setDefRedirects(current.getDefRedirects() + ( 1.5 * investment ));
 			
 			
-		}
-		
-		
+		}	
 	}
+	
 	public void defenderStep(){
 		if(this.getStrategy() == "Random"){
 			Random rand = new Random();
@@ -94,12 +112,28 @@ public class DefenderAgent extends Agent {
 			}
 		}
 	}
+	
 	public Network getWorld() {
 		return world;
 	}
+	
 	public void setWorld(Network world) {
 		this.world = world;
 	}
+
+	public int getResources() {
+		return resources;
+	}
 	
-	
+	public void setResources(int resources) {
+		this.resources = resources;
+	}
+
+	public ArrayList<DefendState> getStates() {
+		return states;
+	}
+
+	public void setStates(ArrayList<DefendState> states) {
+		this.states = states;
+	}
 }
