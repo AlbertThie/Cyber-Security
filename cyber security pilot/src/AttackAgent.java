@@ -53,169 +53,40 @@ public class AttackAgent extends Agent {
 		}
 	}
 	
-	public void  attack(String attackType) {
+	public void  attack(String attackType, Node attack) {
 		if (attackType == "Injection"){
-			double outcome = Math.min(currentNode.getDefInjection() - investment, 0);
-			if(outcome < 0){
-				currentNode.flag(1);
-				double damage = Math.round(1.5 * outcome);
-				if(currentNode.getValue() < damage ) {
-					this.resource = (int) (getResource() + currentNode.getValue());
-					currentNode.setValue(0);
-				} else {
-					currentNode.changeValue(damage);
-					this.resource = (int) (-2 * damage) + getResource();
-				}
-			}
+			attack.setAttInjection(attack.getAttInjection()+1);
 		}
 			
 		if (attackType == "Authentication"){
-			investment = 1.0 * investment;
-			double outcome = Math.min(currentNode.getDefAuthentication() - investment, 0);
-			if(outcome < 0){
-				currentNode.flag(1);
-				double damage = Math.round(1.5 * outcome);
-				if(currentNode.getValue() < damage ){
-					this.resource = (int) (getResource() + currentNode.getValue());
-					currentNode.setValue(0);
-				} else {
-					currentNode.changeValue(damage);
-					this.resource = (int) (-2 * damage) + getResource();
-				}
-			}
+			attack.setAttAuthentication(attack.getAttAuthentication()+1);
 		}
 		if (attackType == "CrossSite"){
-			investment = 1.0 * investment;
-			double outcome = Math.min(currentNode.getDefCrossSite() - investment, 0);
-			if(outcome < 0){
-				currentNode.flag(1.5);
-				double damage = Math.round(outcome);
-				if(currentNode.getValue() < damage ){
-					this.resource = (int) (getResource() + currentNode.getValue());
-					currentNode.setValue(0);
-				} else {
-					currentNode.changeValue(damage);
-					this.resource = (int) (-2 * damage) + getResource();
-				}
-			}
+			attack.setAttCrossSite(attack.getAttCrossSite()+1);	
 		}	
 		if (attackType == "References"){
-			investment = 1.5 * investment;
-			double outcome = Math.min(currentNode.getDefReferences() - investment, 0);
-			if(outcome < 0){
-				currentNode.flag(1.5);
-				double damage = Math.round(outcome);
-				if(currentNode.getValue() < damage ){
-					this.resource = (int) (getResource() + currentNode.getValue());
-					currentNode.setValue(0);
-				} else {
-					currentNode.changeValue(damage);
-					this.resource = (int) (-2 * damage) + getResource();
-				}
-			}
+			attack.setAttReferences(attack.getAttReferences()+1);
 		}	
 		if (attackType == "Misconfiguration") {
-			investment = 1.5 * investment;
-			double outcome = Math.min(currentNode.getDefMisconfiguration() - investment, 0);
-			if (outcome < 0) {
-				currentNode.flag(1.5);
-				double damage = Math.round(outcome);
-				if (currentNode.getValue() < damage ) {
-					this.resource = (int) (getResource() + currentNode.getValue());
-					currentNode.setValue(0);
-				} else {
-					currentNode.changeValue(damage);
-					this.resource = (int) (-2 * damage) + getResource();
-				}
-			}
+			attack.setAttMisconfiguration(attack.getAttMisconfiguration()+1);
 		}	
 		if (attackType == "Exposure") {
-			investment = 0.5 * investment;
-			double outcome = Math.min(currentNode.getDefExposure() - investment, 0);
-			if(outcome < 0) {
-				currentNode.flag(1);
-				double damage = Math.round( 1.5 * outcome);
-				if (currentNode.getValue() < damage ) {
-					this.resource = (int) (getResource() + currentNode.getValue());
-					currentNode.setValue(0);
-				} else {
-					currentNode.changeValue(damage);
-					this.resource = (int) (-2 * damage) + getResource();
-				}
-			}
+			attack.setAttExposure(attack.getAttExposure()+1);
 		}	
 		if (attackType == "Access") {
-			investment = 1.5 * investment;
-			double outcome = Math.min(currentNode.getDefAccess() - investment, 0);
-			if(outcome < 0) {
-				currentNode.flag(1);
-				double damage = Math.round(outcome);
-				if(currentNode.getValue() < damage ) {
-					this.resource = (int) (getResource() + currentNode.getValue());
-					currentNode.setValue(0);
-				} else {
-					currentNode.changeValue(damage);
-					this.resource = (int) (-2 * damage) + getResource();
-				}
-			}
+			attack.setAttAccess(attack.getAttAccess()+1);
 		}	
 		if (attackType == "Forgery") {
-			investment = 1.0 * investment;
-			double outcome = Math.min(currentNode.getDefForgery() - investment, 0);
-			if(outcome < 0) {
-				currentNode.flag(1.5);
-				double damage = Math.round(outcome);
-				if(currentNode.getValue() < damage ) {
-					this.resource = (int) (getResource() + currentNode.getValue());
-					currentNode.setValue(0);
-				} else {
-					currentNode.changeValue(damage);
-					this.resource = (int) (-2 * damage) + getResource();
-				}
-			}
+			attack.setAttForgery(attack.getAttForgery()+1);
 		}	
 		if (attackType == "Vulnerabilities") {
-			investment = 1.0 * investment;
-			double outcome = Math.min(currentNode.getDefVulnerabilities() - investment, 0);
-			if(outcome < 0) {
-				currentNode.flag(0.5);
-				double damage = Math.round(outcome);
-				if(currentNode.getValue() < damage ) {
-					this.resource = (int) (getResource() + currentNode.getValue());
-					currentNode.setValue(0);
-				} else {
-					currentNode.changeValue(damage);
-					this.resource = (int) (-2 * damage) + getResource();
-				}
-			}
+			attack.setAttVulnerabilities(attack.getAttVulnerabilities()+1);
 		}	
 		if (attackType == "Redirects"){
-			investment = 1.0 * investment;
-			double outcome = Math.min(currentNode.getDefRedirects() - investment, 0);
-			if(outcome < 0) {
-				currentNode.flag(1.5);
-				double damage = Math.round(outcome);
-				if(currentNode.getValue() < damage ) {
-					this.resource = (int) (getResource() + currentNode.getValue());
-					currentNode.setValue(0);
-				} else {
-					currentNode.changeValue(damage);
-					this.resource = (int) (-2 * damage) + getResource();
-				}
-			}
+			attack.setAttRedirects(attack.getAttRedirects()+1);
 		}
 	}
 
-
-	public double getResource() {
-		return resource;
-	}
-
-
-	public void setResource(int resource) {
-		this.resource = resource;
-	}
-	
 	public void attackerStep(){
 		if (this.getStrategy() == "Random" ) {
 			Random randomGenerator = new Random();
