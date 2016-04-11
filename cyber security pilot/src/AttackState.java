@@ -8,49 +8,29 @@ public class AttackState {
 	// Defender has 10 different def values to increment (fixed incr. value), so 10*D^10 different state-actions. 
 	
 	// STATE
-	private Node node;
-	private double resources; 	// resources?
+	private Node node;			// current node (attacker only knows ID)
 	
 	// ACTION
-	private String attackType;
-	private double action; 			// resources ingezet?
+	private String attackType;	// type of attack
 	
 	// PARAMS
 	private double Qvalue;
-	private double alpha;			// learning rate
 	
 	
-	public AttackState(Node n, double resources, String attType, double action, double alpha){
+	public AttackState(Node n, String attType){
 		this.setNode(n);
-		this.setAlpha(alpha);
 		this.setAttackType(attType);
-		this.setResources(resources);
-		this.setAction(action);
+		this.setQvalue(0);
 	}
 
-	public void updateQvalue(double reward, double discount){
+	public void updateQvalue(double reward, double alpha){
 		double q = getQvalue();
-		double alpha = getAlpha();
-		double future = 0; // estimate optimal future value: HOE? (misschien nu random?)
-		double newq = q + alpha*(reward+discount*future-q);
+		
+		double newq = q+alpha*(reward-q);
 		setQvalue(newq);
 	}
 	
-	public double getResources() {
-		return resources;
-	}
-
-	public void setResources(double resources) {
-		this.resources = resources;
-	}
-
-	public double getAction() {
-		return action;
-	}
-
-	public void setAction(double action) {
-		this.action = action;
-	}
+	// GETTERS/SETTERS
 	
 	public double getQvalue() {
 		return Qvalue;
@@ -58,14 +38,6 @@ public class AttackState {
 
 	public void setQvalue(double qvalue) {
 		Qvalue = qvalue;
-	}
-
-	public double getAlpha() {
-		return alpha;
-	}
-
-	public void setAlpha(double alpha) {
-		this.alpha = alpha;
 	}
 
 	public Node getNode() {

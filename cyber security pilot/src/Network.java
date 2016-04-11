@@ -20,13 +20,22 @@ public class Network {
 	}
 	
 	public Network getClone(){
-		Network nw = null;
-		try {
-			nw = (Network)this.clone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Network nw = new Network();
+		for (Node n : nodes){
+			// add node to nw with the same values as n
+			nw.addNode(new Node(n.getID(), n.getValue(), n.getDetect(), n.getxPos(),n.getyPos(),n.getDefVulnerabilities(), n.getDefForgery(), n.getDefExposure(),n.getDefReferences(),n.getDefCrossSite(),n.getDefAuthentication(), n.getDefInjection(), n.getDefMisconfiguration(),n.getDefRedirects(),n.getDefAccess()));	
 		}
+		for (Connection c : connections){
+			
+			// add connection to nw with the same values as c
+			// add neighbours to the nodes
+			Node n1 = nw.getNode(c.n1.getID());
+			Node n2 = nw.getNode(c.n2.getID());
+			n2.addNeighbour(n1);
+			n1.addNeighbour(n2);
+			nw.makeConnection(n1, n2);
+		}
+		nw.setNodeSelected(null);
 		return nw;
 	}
 	

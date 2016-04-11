@@ -2,13 +2,13 @@
 public class DefendState {
 
 	// STATE
-	private Network networkState; // Network?
-	private double resources;
+	private Network networkState; 	// Current network?
+	private double resources;		// Currently available resources
 	
 	// ACTION
-	private Node node;
-	private String defendType;
-	private double investment;
+	private Node node;				// Node on which a value is increased
+	private String defendType;		// Defend type that gets its value increased
+	private double investment;		// The current investment in the defend type 
 	
 	// PARAMS
 	private double Qvalue;
@@ -19,7 +19,6 @@ public class DefendState {
 		this.setResources(resources);
 		this.setNode(node);
 		this.setDefendType(defType);
-		this.setInvestment(inv);
 		this.setAlpha(alpha);
 	}
 	
@@ -31,6 +30,7 @@ public class DefendState {
 		setQvalue(newq);
 	}
 
+	// GETTERS/SETTERS
 	public double getResources() {
 		return resources;
 	}
@@ -78,12 +78,5 @@ public class DefendState {
 	public void setDefendType(String defendType) {
 		this.defendType = defendType;
 	}
-
-	public double getInvestment() {
-		return investment;
-	}
-
-	public void setInvestment(double investment) {
-		this.investment = investment;
-	}
 }
+

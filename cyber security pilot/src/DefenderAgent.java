@@ -6,6 +6,7 @@ public class DefenderAgent extends Agent {
 	private int resources; 
 	private Network world;
 	public final String options[] = {"Injection", "Authentication", "CrossSite", "References", "Misconfiguration", "Exposure", "Access","Forgery", "Vulnerabilities", "Redirects"};
+	
 	private ArrayList<DefendState> states;
 	
 	public DefenderAgent(int monies, Network nw){
@@ -24,7 +25,7 @@ public class DefenderAgent extends Agent {
 		return null;
 	}
 	
-	public void updateQLearn(double reward, double discount){
+	public void updateQLearn(double reward){
 		DefendState curstate = findState();
 		if(curstate==null){
 			double alpha = 1;
@@ -33,66 +34,71 @@ public class DefenderAgent extends Agent {
 			double inv = 0; // investment in de defense type
 			DefendState newState = new DefendState(getNw(), resources, node, deftype, inv, alpha);
 		} else {
-			curstate.updateQvalue(reward, discount);
+			curstate.updateQvalue(reward);
 		}
 	}
 	
-	public void defend(String type, int investment, int nodeID){
+	public void defend(String type, int nodeID){
 		if( type == "Injection"){
 			Node current = this.getWorld().getNodes().get(nodeID);
-			current.setDefInjection(current.getDefInjection() + investment );
+			current.setDefInjection(current.getDefInjection() + 1 );
 		}
 		if( type == "Authentication"){
 			Node current = this.getWorld().getNodes().get(nodeID);
-			current.setDefAuthentication(current.getDefAuthentication() + (0.5 * investment));
+			current.setDefAuthentication(current.getDefAuthentication() + 1);
 			
 			
 		}
 		if( type == "CrossSite"){
 			Node current = this.getWorld().getNodes().get(nodeID);
-			current.setDefCrossSite(current.getDefCrossSite() + (0.5 * investment));
+			current.setDefCrossSite(current.getDefCrossSite() + 1);
 			
 			
 		}
 		if( type == "References"){
 			Node current = this.getWorld().getNodes().get(nodeID);
-			current.setDefReferences(current.getDefReferences() + investment );
+			current.setDefReferences(current.getDefReferences() + 1 );
 			
 			
 		}
 		if( type == "Misconfiguration"){
 			Node current = this.getWorld().getNodes().get(nodeID);
-			current.setDefMisconfiguration(current.getDefMisconfiguration() + investment );
+			current.setDefMisconfiguration(current.getDefMisconfiguration() + 1 );
 			
 			
 		}
 		if( type == "Exposure"){
 			Node current = this.getWorld().getNodes().get(nodeID);
-			current.setDefExposure(current.getDefExposure() + ( 1.5 * investment ));
+			current.setDefExposure(current.getDefExposure() + 1);
 			
 			
 		}
 		if( type == "Access"){
 			Node current = this.getWorld().getNodes().get(nodeID);
-			current.setDefAccess(current.getDefAccess() + investment );
+			current.setDefAccess(current.getDefAccess() + 1 );
 			
 			
 		}
 		if( type == "Forgery"){
 			Node current = this.getWorld().getNodes().get(nodeID);
-			current.setDefForgery(current.getDefForgery() + investment );
+			current.setDefForgery(current.getDefForgery() + 1 );
 			
 			
 		}
 		if( type == "Vulnerabilities"){
 			Node current = this.getWorld().getNodes().get(nodeID);
-			current.setDefVulnerabilities(current.getDefVulnerabilities() + ( 0.5 * investment ));
+			current.setDefVulnerabilities(current.getDefVulnerabilities() + 1);
 			
 			
 		}
-		if( type == "Injection"){
+		if( type == "Redirects"){
 			Node current = this.getWorld().getNodes().get(nodeID);
-			current.setDefRedirects(current.getDefRedirects() + ( 1.5 * investment ));
+			current.setDefRedirects(current.getDefRedirects() + 1);
+		}
+		
+		if( type == " Detection"){
+			Node current = this.getWorld().getNodes().get(nodeID);
+			current.setDetect(current.getDetect() + 1);
 			
 			
 		}	
@@ -101,16 +107,11 @@ public class DefenderAgent extends Agent {
 	public void defenderStep(){
 		if(this.getStrategy() == "Random"){
 			Random rand = new Random();
-			int numActions; 
-			numActions = rand.nextInt(this.getWorld().getNodes().size());
-			for (int i = 0; i < numActions; i++ ){
-				int investment = rand.nextInt(25);
-				int target = rand.nextInt(this.getWorld().getNodes().size());
-				this.setResources(this.getResources() - investment);
-				this.defend(this.options[rand.nextInt(10)], investment, target);
-				
+			int target = rand.nextInt(this.getWorld().getNodes().size());
+			String action = this.options[rand.nextInt(11)];
+			this.defend(action, target);
+			//write action + target
 			}
-		}
 	}
 	
 	public Network getWorld() {
