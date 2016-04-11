@@ -4,8 +4,7 @@ import java.util.Random;
 public class AttackAgent extends Agent {
 	
 	private Node currentNode;
-	private double resource;
-	public final String options[] = {"Move", "Injection", "Authentication", "CrossSite", "References", "Misconfiguration", "Exposure", "Access","Forgery", "Vulnerabilities", "Redirects"};
+	public final String options[] = {"Injection", "Authentication", "CrossSite", "References", "Misconfiguration", "Exposure", "Access","Forgery", "Vulnerabilities", "Redirects"};
 	private ArrayList<AttackState> states;
 	
 	public AttackAgent(int money, Node n){
@@ -54,9 +53,8 @@ public class AttackAgent extends Agent {
 		}
 	}
 	
-	public void  attack(String attackType, double investment) {
+	public void  attack(String attackType) {
 		if (attackType == "Injection"){
-			investment = 1.5 * investment;
 			double outcome = Math.min(currentNode.getDefInjection() - investment, 0);
 			if(outcome < 0){
 				currentNode.flag(1);

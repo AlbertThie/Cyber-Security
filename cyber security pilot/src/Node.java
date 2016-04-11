@@ -6,14 +6,15 @@ import java.util.Random;
 public class Node {
 
 
-	private double value, defInjection, defAuthentication, defCrossSite, defReferences, defMisconfiguration, defExposure, defAccess, defForgery, defVulnerabilities, defRedirects, detect;
+	boolean value;
+	private double attInjection, attAuthentication, attCrossSite, attReferences, attMisconfiguration, attExposure, attAccess, attForgery, attVulnerabilities, attRedirects, defInjection, defAuthentication, defCrossSite, defReferences, defMisconfiguration, defExposure, defAccess, defForgery, defVulnerabilities, defRedirects, detect;
 	private int xPos, yPos;
 	private String ID;
 	private ArrayList<Node> neighbours = new ArrayList<Node>();
 	private boolean detected;
 	
 	
-	public Node(String ID, double v, double det, int xPos, int yPos, double defVulnerabilities, double defForgery,double defExposure, double defReferences, double defCrossSite, double defAuthentication, double defInjection, double defMisconfiguration, double defRedirects, double defAccess){
+	public Node(String ID, boolean v, double det, int xPos, int yPos, double defVulnerabilities, double defForgery,double defExposure, double defReferences, double defCrossSite, double defAuthentication, double defInjection, double defMisconfiguration, double defRedirects, double defAccess){
 		this.setID(ID);
 		this.value=v;
 		this.setDefInjection(defInjection);
@@ -26,6 +27,16 @@ public class Node {
 		this.setDefForgery(defForgery);
 		this.setDefVulnerabilities(defVulnerabilities);
 		this.setDefRedirects(defRedirects);
+		this.setAttInjection(0);
+		this.setAttAuthentication(0);
+		this.setAttCrossSite(0);
+		this.setAttReferences(0);
+		this.setAttMisconfiguration(0);
+		this.setAttExposure(0);
+		this.setAttAccess(0);
+		this.setAttForgery(0);
+		this.setAttVulnerabilities(0);
+		this.setAttRedirects(0);
 		this.setDetect(det);
 		this.setxPos(xPos);
 		this.setyPos(yPos);
@@ -67,20 +78,15 @@ public class Node {
 		return s;
 	}
 
-	public double getValue() {
+	public boolean getValue() {
 		return value;
 	}
 
 
-	public void setValue(double value) {
+	public void setValue(boolean value) {
 		this.value = value;
 	}
 	
-	
-	public void changeValue(double change){
-		this.value = Math.max(0.0, getValue() + change) ;
-	}
-
 	
 	public double getDetect() {
 		return detect;
@@ -212,6 +218,86 @@ public class Node {
 
 	public void setDetected(boolean detected) {
 		this.detected = detected;
+	}
+
+	public double getAttInjection() {
+		return attInjection;
+	}
+
+	public void setAttInjection(double attInjection) {
+		this.attInjection = attInjection;
+	}
+
+	public double getAttAuthentication() {
+		return attAuthentication;
+	}
+
+	public void setAttAuthentication(double attAuthentication) {
+		this.attAuthentication = attAuthentication;
+	}
+
+	public double getAttCrossSite() {
+		return attCrossSite;
+	}
+
+	public void setAttCrossSite(double attCrossSite) {
+		this.attCrossSite = attCrossSite;
+	}
+
+	public double getAttReferences() {
+		return attReferences;
+	}
+
+	public void setAttReferences(double attReferences) {
+		this.attReferences = attReferences;
+	}
+
+	public double getAttMisconfiguration() {
+		return attMisconfiguration;
+	}
+
+	public void setAttMisconfiguration(double attMisconfiguration) {
+		this.attMisconfiguration = attMisconfiguration;
+	}
+
+	public double getAttExposure() {
+		return attExposure;
+	}
+
+	public void setAttExposure(double attExposure) {
+		this.attExposure = attExposure;
+	}
+
+	public double getAttAccess() {
+		return attAccess;
+	}
+
+	public void setAttAccess(double attAccess) {
+		this.attAccess = attAccess;
+	}
+
+	public double getAttForgery() {
+		return attForgery;
+	}
+
+	public void setAttForgery(double attForgery) {
+		this.attForgery = attForgery;
+	}
+
+	public double getAttVulnerabilities() {
+		return attVulnerabilities;
+	}
+
+	public void setAttVulnerabilities(double attVulnerabilities) {
+		this.attVulnerabilities = attVulnerabilities;
+	}
+
+	public double getAttRedirects() {
+		return attRedirects;
+	}
+
+	public void setAttRedirects(double attRedirects) {
+		this.attRedirects = attRedirects;
 	}
 
 }
