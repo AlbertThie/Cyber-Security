@@ -77,6 +77,7 @@ public class Simulation extends Observable {
 		// check on attacked node what happened: asset taken, attack detected or nothing
 		Node n = a.getNode();
 		n.checkAttack(a.getAttackType());
+		//TODO move atacker to next node if attack was successfull
 	}
 	
 	public void modelStep(){
