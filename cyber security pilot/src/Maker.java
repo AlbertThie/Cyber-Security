@@ -32,10 +32,11 @@ public class Maker {
 		}
 		int a=0;
 		while(s.hasNextLine() && a++<numNodes){
-			double x,y,z;
+			double y,z;
+			boolean x;
 			int w,v;
 			String n;
-			x=Double.parseDouble(s.next());
+			x=Boolean.parseBoolean(s.next());
 			y=Double.parseDouble(s.next());
 			z=Double.parseDouble(s.next());
 			w=Integer.parseInt(s.next());

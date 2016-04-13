@@ -5,36 +5,42 @@ public class DefenderAgent extends Agent {
 
 	private int resources; 
 	private Network world;
-	public final String options[] = {"Injection", "Authentication", "CrossSite", "References", "Misconfiguration", "Exposure", "Access","Forgery", "Vulnerabilities", "Redirects"};
+	public final String options[] = {"Injection", "Authentication", "CrossSite", "References", "Misconfiguration", "Exposure", "Access","Forgery", "Vulnerabilities", "Redirects", "Detection"};
 	
 	private ArrayList<DefendState> states;
+	private ArrayList<DefendState> actionSeq;
 	
 	public DefenderAgent(int monies, Network nw){
 		super();
 		this.setResources(monies);
 		this.setWorld(nw);
 		this.setStates(new ArrayList<DefendState>());
+		this.setActionSeq(new ArrayList<DefendState>());
 	}
 	
-	public DefendState findState(){
+	// tries to find state-action pair in list of previous states
+	public DefendState findState(DefendState s){
 		for(DefendState d : getStates()){
-			if(d.getResources()==getResources() && d.getNetworkState().equals(getWorld())){
+			//TODO properly compare states d and s on the networks and chosen node
+			if(d.getDefendType()==s.getDefendType() && d.getNetworkState().equals(getWorld())){
 				return d;
 			}
 		}
 		return null;
 	}
 	
-	public void updateQLearn(double reward){
-		DefendState curstate = findState();
-		if(curstate==null){
-			double alpha = 1;
-			Node node = null; // node waarin is verhoogd
-			String deftype = ""; // defense type dat is verhoogd
-			double inv = 0; // investment in de defense type
-			DefendState newState = new DefendState(getNw(), resources, node, deftype, inv, alpha);
-		} else {
-			curstate.updateQvalue(reward);
+	// updates q values for all state-actions in actionSeq
+	public void updateQLearn(double reward, double alpha){
+		for(DefendState d : getActionSeq()){
+			DefendState curstate = findState(d);
+			if(curstate==null){ // new state-action
+				// this might be wrong
+				Network nw = d.getNetworkState();
+				Node node = d.getNode();
+				String deftype = d.getDefendType();
+				curstate = new DefendState(nw, node, deftype);
+			}
+			curstate.updateQvalue(reward, alpha);
 		}
 	}
 	
@@ -96,7 +102,7 @@ public class DefenderAgent extends Agent {
 			current.setDefRedirects(current.getDefRedirects() + 1);
 		}
 		
-		if( type == " Detection"){
+		if( type == "Detection"){
 			Node current = this.getWorld().getNodes().get(nodeID);
 			current.setDetect(current.getDetect() + 1);
 			
@@ -105,13 +111,21 @@ public class DefenderAgent extends Agent {
 	}
 	
 	public void defenderStep(){
-		if(this.getStrategy() == "Random"){
+		switch(this.getStrategy()){
+		case "Random":
 			Random rand = new Random();
 			int target = rand.nextInt(this.getWorld().getNodes().size());
 			String action = this.options[rand.nextInt(11)];
 			this.defend(action, target);
-			//write action + target
-			}
+			//TODO STORE CHOSEN NODE AND DEFEND TYPE ALONG WITH CURRENT NETWORK IN ACTIONSEQ
+			break;
+		case "Q-Learning":
+			//TODO SELECT NODE AND DEFEND TYPE AND PERFORM DEFEND
+			//TODO STORE ALONG WITH CURRENT NETWORK IN ACTIONSEQ
+			break;
+		default:
+			break;
+		}
 	}
 	
 	public Network getWorld() {
@@ -136,5 +150,13 @@ public class DefenderAgent extends Agent {
 
 	public void setStates(ArrayList<DefendState> states) {
 		this.states = states;
+	}
+
+	public ArrayList<DefendState> getActionSeq() {
+		return actionSeq;
+	}
+
+	public void setActionSeq(ArrayList<DefendState> actionSeq) {
+		this.actionSeq = actionSeq;
 	}
 }

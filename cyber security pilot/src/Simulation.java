@@ -85,8 +85,7 @@ public class Simulation extends Observable {
 				updateDefendAgent(-100);
 				updateAttackAgent(100);
 			}
-			// 
-			
+			//TODO clear action sequences of both agents
 		
 		}
 	}

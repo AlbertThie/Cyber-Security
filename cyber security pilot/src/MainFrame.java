@@ -243,10 +243,19 @@ public class MainFrame extends JFrame {
 		    							setup.dispose();
 			    						model.getNw().addNode(
 			    								new Node(id_txt.getText(), 
-			    										 Double.parseDouble(ass_txt.getText()), 
-			    										 Double.parseDouble(def_txt.getText()), 
+			    										 Double.parseDouble(ass_txt.getText())!=0, // to convert asset value to boolean (true if asset value>0)
+			    										 Double.parseDouble(det_txt.getText()), 
 			    										 30, 30,
-			    										 Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText()),Double.parseDouble(det_txt.getText())));
+			    										 Double.parseDouble(def_txt.getText()),
+			    										 Double.parseDouble(def_txt.getText()),
+			    										 Double.parseDouble(def_txt.getText()),
+			    										 Double.parseDouble(def_txt.getText()),
+			    										 Double.parseDouble(def_txt.getText()),
+			    										 Double.parseDouble(def_txt.getText()),
+			    										 Double.parseDouble(def_txt.getText()),
+			    										 Double.parseDouble(def_txt.getText()),
+			    										 Double.parseDouble(def_txt.getText()),
+			    										 Double.parseDouble(def_txt.getText())));
 			    						model.noti();
 		    						} else {
 		    							infoMessage("Not a number");

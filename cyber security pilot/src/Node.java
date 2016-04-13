@@ -13,7 +13,6 @@ public class Node {
 	private ArrayList<Node> neighbours = new ArrayList<Node>();
 	private boolean detected;
 	
-	
 	public Node(String ID, boolean v, double det, int xPos, int yPos, double defVulnerabilities, double defForgery,double defExposure, double defReferences, double defCrossSite, double defAuthentication, double defInjection, double defMisconfiguration, double defRedirects, double defAccess){
 		this.setID(ID);
 		this.value=v;
@@ -43,6 +42,8 @@ public class Node {
 		this.setDefAuthentication(defAuthentication);
 		this.setDetected(false);
 	}
+	
+	
 
 	public Rectangle getRect(){
 		return new Rectangle(getxPos(), getyPos(), 30, 30);

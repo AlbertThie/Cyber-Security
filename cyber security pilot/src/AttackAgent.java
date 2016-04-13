@@ -26,6 +26,7 @@ public class AttackAgent extends Agent {
 		this.currentNode = currentNode;
 	}
 	
+	// checks if two nodes are the same, defend and detect values do not matter
 	public boolean sameNodes(Node a, Node s){
 		return    a.getID()==s.getID()
 			   && a.getAttAccess()==s.getAttAccess()
@@ -41,6 +42,7 @@ public class AttackAgent extends Agent {
 	}
 	
 
+	// tries to find current state-action in the list of previous states
 	public AttackState findState(AttackState s){
 		for(AttackState a : getStates()){
 			if(a.getAttackType()==s.getAttackType() && sameNodes(a.getNode(),s.getNode())){
@@ -50,11 +52,11 @@ public class AttackAgent extends Agent {
 		return null;
 	}
 	
+	// updates q values for all states in current sequence
 	public void updateQLearn(double reward, double alpha){
 		for (AttackState s : actionSeq){
 			AttackState curstate = findState(s);
 			if(curstate==null){ // new state-action
-				
 				AttackState newState = new AttackState(s.getNode(), s.getAttackType());
 				states.add(newState);
 				curstate = newState;
@@ -63,6 +65,8 @@ public class AttackAgent extends Agent {
 		}
 	}
 	
+	
+	// add 1 to the chosen attack type on the chosen node
 	public void  attack(String attackType, Node attack) {
 		if (attackType == "Injection"){
 			attack.setAttInjection(attack.getAttInjection()+1);
@@ -107,16 +111,26 @@ public class AttackAgent extends Agent {
 		this.resource = resource;
 	}
 	
+	// Do one move: select the node to attack and the type of attack
 	public void attackerStep(){
-		if (this.getStrategy() == "Random" ) {
-			Random randomGenerator = new Random();
-			int pick;
-			pick = currentNode.getNeighbours().size()>0 ? randomGenerator.nextInt(11) : randomGenerator.nextInt(10)+1;
-			if(pick == 0) {
-			} else {
-				//TODO ATTACK OTHER NODE THAN CURRENT
-				this.attack(this.options[pick], currentNode);
-			}
+		switch (this.getStrategy()){
+			case "random":
+				Random randomGenerator = new Random();
+				Node n = currentNode.getNeighbours().get(randomGenerator.nextInt(currentNode.getNeighbours().size()));
+				int pick;
+				pick = currentNode.getNeighbours().size()>0 ? randomGenerator.nextInt(11) : randomGenerator.nextInt(10)+1;
+				if(pick == 0) {
+				} else {
+					this.attack(this.options[pick], n);
+				}
+				//TODO STORE SELECTED NODE AND ATTACK TYPE IN ACTIONSEQ
+				break;
+			case "Q-Learning":
+				//TODO SELECT NODE AND ATTACK TYPE, STORE THEM IN ACTIONSEQ
+				
+				break;
+			default:
+				break;
 		}
 	}
 

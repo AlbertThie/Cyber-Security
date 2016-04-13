@@ -8,7 +8,8 @@ public class AttackState {
 	// Defender has 10 different def values to increment (fixed incr. value), so 10*D^10 different state-actions. 
 	
 	// STATE
-	private Node node;			// current node (attacker only knows ID)
+	private Node node;			// node that is attacked (attacker only knows ID and att values)
+								//TODO current node of attacker???, then node above in action?
 	
 	// ACTION
 	private String attackType;	// type of attack
@@ -25,7 +26,6 @@ public class AttackState {
 
 	public void updateQvalue(double reward, double alpha){
 		double q = getQvalue();
-		
 		double newq = q+alpha*(reward-q);
 		setQvalue(newq);
 	}
