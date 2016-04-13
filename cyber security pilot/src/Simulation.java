@@ -7,14 +7,15 @@ public class Simulation extends Observable {
 	private AttackAgent aAgent;
 	private Network nw;
 	private Network startNetwork;
+	private boolean start = true;
 	private int games = 1;
 	private final double alpha = 0.5; 			// learning rate
 	
 	public Simulation() {
 		nw = new Network();
-		nw.addNode(new Node("Start", true, 0.0, 30, 30, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+		nw.addNode(new Node("Start", false, 0.0, 30, 30, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 		startNetwork = new Network();
-		startNetwork.addNode(new Node("Start", true, 0.0, 30, 30, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+		startNetwork.addNode(new Node("Start", false, 0.0, 30, 30, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 		setdAgent(new DefenderAgent(1000, nw));
 		setaAgent(new AttackAgent(1000,nw.getNodes().get(0)));
 	}
@@ -68,9 +69,25 @@ public class Simulation extends Observable {
 			
 	}
 	
+	//TODO for now, only determines if assets are taken and if player is detected
+	public void updateNetwork(AttackState a, DefendState d){
+		// update network
+		aAgent.attack(a.getAttackType(), a.getNode());
+		dAgent.defend(d.getDefendType(), d.getNode().getID());
+		// check on attacked node what happened: asset taken, attack detected or nothing
+		Node n = a.getNode();
+		n.checkAttack(a.getAttackType());
+	}
+	
 	public void modelStep(){
-		getaAgent().attackerStep();
-		getdAgent().defenderStep();
+		if(start){
+			setStartNetwork(nw.getClone());
+			start=false;
+		}
+		AttackState attackAction = getaAgent().attackerStep();
+		DefendState defendAction = getdAgent().defenderStep();
+		//TODO add "modelstep" to check if an asset is taken or agent is detected
+		updateNetwork(attackAction, defendAction);
 		if(checkDetected() || checkEmptyAsset()){
 			restart();
 			games ++;

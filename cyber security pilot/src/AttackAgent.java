@@ -112,25 +112,24 @@ public class AttackAgent extends Agent {
 	}
 	
 	// Do one move: select the node to attack and the type of attack
-	public void attackerStep(){
+	public AttackState attackerStep(){
 		switch (this.getStrategy()){
-			case "random":
+			case "Random":
 				Random randomGenerator = new Random();
-				Node n = currentNode.getNeighbours().get(randomGenerator.nextInt(currentNode.getNeighbours().size()));
+				int sz = currentNode.getNeighbours().size();
+				Node n = sz > 0 ? currentNode.getNeighbours().get(randomGenerator.nextInt(currentNode.getNeighbours().size())) : currentNode;
 				int pick;
 				pick = currentNode.getNeighbours().size()>0 ? randomGenerator.nextInt(11) : randomGenerator.nextInt(10)+1;
-				if(pick == 0) {
-				} else {
-					this.attack(this.options[pick], n);
-				}
-				//TODO STORE SELECTED NODE AND ATTACK TYPE IN ACTIONSEQ
-				break;
+				AttackState a = new AttackState(n,options[pick]);
+				actionSeq.add(a);
+				return a;
 			case "Q-Learning":
 				//TODO SELECT NODE AND ATTACK TYPE, STORE THEM IN ACTIONSEQ
-				
-				break;
+				AttackState b = null;
+				actionSeq.add(b);
+				return b;
 			default:
-				break;
+				return null;
 		}
 	}
 

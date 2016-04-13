@@ -200,11 +200,54 @@ public class Node {
 		this.defRedirects = defRedirects;
 	}
 	
-	public void flag(double diff){
-		Random rand = new Random();
-		double flagChance = rand.nextInt(100);
-		if (this.detect * diff > flagChance){ // was <=, leek niet goed
-			setDetected(true);
+	public void flag(double att, double def){
+		if(att>def){
+			setValue(false);
+		} else {
+			Random rand = new Random();
+			double flagChance = rand.nextInt(100);
+			double diff = def-att;
+			if (this.detect * diff > flagChance){ // was <=, leek niet goed
+				setDetected(true);
+			}
+		}
+	}
+	
+	// DETERMINE IF ATTACKER IS CAUGHT, ASSET IS TAKEN, OR NOTHING
+	public void checkAttack(String attType){
+		switch(attType){
+		case "Injection":
+			flag(attInjection, defInjection);
+			break;
+		case "Authentication":
+			flag(attAuthentication, defAuthentication);
+			break;
+		case "CrossSite":
+			flag(attCrossSite, defCrossSite);
+			break;
+		case "References":
+			flag(attReferences, defReferences);
+			break;
+		case "Misconfiguration":
+			flag(attMisconfiguration, defMisconfiguration);
+			break;
+		case "Exposure":
+			flag(attExposure, defExposure);
+			break;
+		case "Access":
+			flag(attAccess, defAccess);
+			break;
+		case "Forgery":
+			flag(attForgery, defForgery);
+			break;
+		case "Vulnerabilities":
+			flag(attVulnerabilities, defVulnerabilities);
+			break;
+		case "Redirects":
+			flag(attRedirects, defRedirects);
+			break;
+		default:
+			break;
 		}
 
 	}
